@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+	<h:form>
+	<nav class="aw-menu" id="menu">
+		<ul>
+			<li>
+				<h:link><i class="fa  fa-fw  fa-home"></i>Contatos</h:link>
+			</li>
+			<li>
+				<h:link><i class="fa  fa-fw  fa-user"></i>Customers</h:link>
+			</li>
+			<li class="is-selected">
+				<h:link outcome="/teste2"><i class="fa  fa-fw  fa-tags js-toggle"></i>Produtos</h:link>
+			</li>
+			<li>
+				<h:link ><i class="fa  fa-fw  fa-cart-plus"></i>Vender</h:link>
+			</li><li><br /> </li><li><br /> </li>
+			<li class="configbut">
+				<p:commandButton value="#{msg.Configurar}" icon="fa  fa-fw  fa-cogs" 
+								 styleClass="button_principal"
+								 action="#{usuarioMBean.init()}" />
+				
+			</li>
+		</ul>
+	</nav>
+	</h:form>
+</ui:composition>

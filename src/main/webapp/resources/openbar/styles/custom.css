@@ -1,0 +1,78 @@
+/* BASE */
+body {
+	margin: 0;
+	font-size: 13px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* TABVIEW */
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a {
+	color: #555;
+}
+.ui-inputfield-state-error{
+	border: 2px #ff0000 !important;
+}
+@media (max-width: 640px) {
+	.ui-tabs.ui-tabs-top > .ui-tabs-nav li {
+		width: 100%;
+	}
+}
+
+/* PANELGRID */
+.ui-panelgrid.panelgrid-noborder .ui-grid-responsive {
+	border: none;
+}
+
+@media (max-width: 640px) {
+	.ui-panelgrid.panelgrid-noborder .ui-grid-responsive .ui-grid-row {
+		border: none;
+	}
+}
+
+.button_principal{
+	background: #1e94d2 !important; 
+	color: white !important;
+	text-shadow: none !important;
+}
+
+.button_cancel{
+	background: red !important;
+	color: white !important;
+	text-shadow: none !important;
+}
+
+.button_ativar{
+	background: #2bef42 !important;
+	color: white !important;
+	text-shadow: none !important;
+}
+
+.ativo{
+	text-align: center !important;
+}
+.ui-clock {
+    padding: 4px 10px;
+    color: white !important;
+    background: #1e94d2 !important;
+    border: none;
+    font-weight: normal !important; 
+}
+
+.link_sair{
+	color: white !important;
+	font-weight: bold !important;
+	text-decoration: underline !important;
+}
+
+.ui-inputswitch-on{
+	background: green !important;
+	color: white !important;
+}
+.ui-inputswitch-off{
+	background: red !important;
+	color: white !important;
+}
+
+.ui-state-active .ui-icon {
+    background-image: url(/Open-Bar-0.0.1-SNAPSHOT/javax.faces.resource/images/ui-icons_333333_256x240.png.jsf?ln=primefaces-bootstrap)  !important;
+}

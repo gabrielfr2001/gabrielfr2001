@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<p:dialog widgetVar="dialogNovoProdutoWV" id="dialogNovoProduto"
+		resizable="false" modal="true" width="550" dynamic="true" height="350"
+		header="Novo produto">
+
+		<h:form id="novoProduto">
+			
+			<p:panel style="margin-bottom:20px;">
+
+
+				<h:panelGrid columns="3" cellpadding="5">
+					<h:panelGrid columns="1">
+
+						<p:outputLabel value="Nome: " />
+						<p:inputText title="Entre como nome do produto"
+							value="#{iU01_01MBean.produto.nome}" size="33" required="true"
+							requiredMessage="Não é possivel cadastrar um produto sem nome!"
+							placeholder="Digite o nome do produto">
+						</p:inputText>
+						<br />
+						<p:outputLabel value="Descrição: " />
+						<p:inputTextarea rows="6" cols="35"
+							value="#{iU01_01MBean.produto.descricao}"
+							placeholder="Entre com a descrição do produto" />
+
+					</h:panelGrid>
+					<h:panelGrid columns="1" />
+					<h:panelGrid columns="1">
+						<p:outputLabel value="Preço: (R$) " />
+						<p:inputText value="#{iU01_01MBean.produto.preco}" size="6"
+							style="text-align: right;" required="true" requiredMessage="Não é possivel cadastrar um produto sem preço!"/>
+						<br />
+						<p:outputLabel value="Estoque: " />
+						<p:inputText value="#{iU01_01MBean.produto.estoque}" size="6"
+							style="text-align: right;" placeholder="00" />
+						<br />
+						<p:outputLabel value="Ativo: " />
+						<p:inputSwitch widgetVar="ativoWV"
+							value="#{iU01_01MBean.produto.ativo}" onLabel="On" offLabel="Off" />
+						<br />
+
+					</h:panelGrid>
+				</h:panelGrid>
+
+
+				<p:panel style="text-align: center;">
+
+					<p:commandButton value="Salvar" styleClass="button_principal"
+						icon="fa  fa-fw  fa-floppy-o"
+						action="#{iU01_01MBean.onSaveNovoProduto()}"
+						update="formCadastroDeProdutos:linesTable" 
+						oncomplete="PF('dialogNovoProdutoWV').hide();"/>
+
+					<p:commandButton value="Reiniciar Campos"
+						action="#{iU01_01MBean.onNovoProduto()}"
+						icon="fa  fa-fw  fa-recycle" update="novoProduto" />
+
+					<p:commandButton value="Cancelar" styleClass="button_cancel"
+						icon="fa  fa-fw  fa-trash"
+						oncomplete="PF('dialogNovoProdutoWV').hide();" />
+				</p:panel>
+
+
+			</p:panel>
+
+		</h:form>
+
+	</p:dialog>
+</h:body>
+</html>
