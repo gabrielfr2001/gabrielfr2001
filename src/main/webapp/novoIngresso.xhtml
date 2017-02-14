@@ -7,8 +7,8 @@
 
 <h:body>
 	<p:dialog widgetVar="dialogNovoIngressoWV" id="dialogNovoIngresso"
-		resizable="false" modal="true" width="550" dynamic="true" height="350"
-		header="Novo ingresso">
+		resizable="false" modal="true" width="550" dynamic="true" height="275"
+		header="#{tagsIngressos.Novo_Ingresso}">
 
 		<h:form id="novoIngresso">
 			
@@ -17,31 +17,25 @@
 
 				<h:panelGrid columns="3" cellpadding="5">
 					<h:panelGrid columns="1">
-
-						<p:outputLabel value="Nome: " />
+						<p:outputLabel value="#{msg.Nome} " />
 						<p:inputText title="Entre como nome do ingresso"
 							value="#{iU02_01MBean.ingresso.nome}" size="33" required="true"
 							requiredMessage="Não é possivel cadastrar um ingresso sem nome!"
 							placeholder="Digite o nome do ingresso">
 						</p:inputText>
 						<br />
-						<p:outputLabel value="Descrição: " />
-						<p:inputTextarea rows="6" cols="35"
-							value="#{iU02_01MBean.ingresso.descricao}"
-							placeholder="Entre com a descrição do ingresso" />
 
-					</h:panelGrid>
-					<h:panelGrid columns="1" />
-					<h:panelGrid columns="1">
-						<p:outputLabel value="Preço: (R$) " />
+						<p:outputLabel value="#{msg.Preco }" />
 						<p:inputText value="#{iU02_01MBean.ingresso.preco}" size="6"
 							style="text-align: right;" required="true" requiredMessage="Não é possivel cadastrar um ingresso sem preço!"/>
-						<br />
-						<p:outputLabel value="Estoque: " />
+						</h:panelGrid>
+						<h:panelGrid columns ="1"/>
+						<h:panelGrid columns ="1"><br></br>
+						<p:outputLabel value="#{msg.Estoque} " />
 						<p:inputText value="#{iU02_01MBean.ingresso.estoque}" size="6"
 							style="text-align: right;" placeholder="00" />
 						<br />
-						<p:outputLabel value="Ativo: " />
+						<p:outputLabel value="#{msg.Ativo}" />
 						<p:inputSwitch widgetVar="ativoWV"
 							value="#{iU02_01MBean.ingresso.ativo}" onLabel="On" offLabel="Off" />
 						<br />
@@ -52,17 +46,17 @@
 
 				<p:panel style="text-align: center;">
 
-					<p:commandButton value="Salvar" styleClass="button_principal"
+					<p:commandButton value="#{msg.Incluir}" styleClass="button_principal"
 						icon="fa  fa-fw  fa-floppy-o"
 						action="#{iU02_01MBean.onSaveNovoIngresso()}"
 						update="formCadastroDeIngressos:linesTable" 
 						oncomplete="PF('dialogNovoIngressoWV').hide();"/>
 
-					<p:commandButton value="Reiniciar Campos"
+					<p:commandButton value="#{msg.ReiniciarCampos}"
 						action="#{iU02_01MBean.onNovoIngresso()}"
 						icon="fa  fa-fw  fa-recycle" update="novoIngresso" />
 
-					<p:commandButton value="Cancelar" styleClass="button_cancel"
+					<p:commandButton value="#{msg.Cancelar}" styleClass="button_cancel"
 						icon="fa  fa-fw  fa-trash"
 						oncomplete="PF('dialogNovoIngressoWV').hide();" />
 				</p:panel>

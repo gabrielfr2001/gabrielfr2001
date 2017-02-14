@@ -5,6 +5,7 @@
 	<persistence-unit name="Open-Bar" transaction-type="RESOURCE_LOCAL">
 	<provider>org.hibernate.ejb.HibernatePersistence</provider>
 	<class>br.com.scheid.model.Produto</class>
+	<class>br.com.scheid.model.Ingresso</class>
 	
 		<properties>
 			<property name="hibernate.show_sql" value="true" />

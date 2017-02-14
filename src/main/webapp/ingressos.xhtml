@@ -36,24 +36,29 @@
 					rows="10" reflow="true" style="margin-top: 10px">
 					<p:ajax event="rowSelect"
 						update="formCadastroDeIngressos:btnEditar,
-													          formCadastroDeIngressos:btnExcluir" />
+								formCadastroDeIngressos:btnExcluir,
+								formCadastroDeIngressos:btnAtivar" />
 					<p:ajax event="rowUnselect"
 						update="formCadastroDeIngressos:btnEditar,
-													          formCadastroDeIngressos:btnExcluir" />
+								formCadastroDeIngressos:btnExcluir,
+								formCadastroDeIngressos:btnAtivar" />
 					<p:ajax event="rowSelectCheckbox"
 						update="formCadastroDeIngressos:btnEditar,
-													          formCadastroDeIngressos:btnExcluir" />
+								formCadastroDeIngressos:btnExcluir,
+								formCadastroDeIngressos:btnAtivar" />
 					<p:ajax event="rowUnselectCheckbox"
 						update="formCadastroDeIngressos:btnEditar,
-																formCadastroDeIngressos:btnExcluir" />
+								formCadastroDeIngressos:btnExcluir,
+								formCadastroDeIngressos:btnAtivar" />
 					<p:ajax event="toggleSelect"
 						update="formCadastroDeIngressos:btnEditar,
-																formCadastroDeIngressos:btnExcluir" />
+								formCadastroDeIngressos:btnExcluir,
+								formCadastroDeIngressos:btnAtivar" />
 
 					<p:column selectionMode="multiple"
 						style="width:16px;text-align:center" />
-					<p:column headerText="#{tagsIngressos.ingresso}" style="width:200px;"
-						id="nome" sortBy="#{line.nome}">
+					<p:column headerText="#{tagsIngressos.ingresso}"
+						style="width:200px;" id="nome" sortBy="#{line.nome}">
 						<h:outputText value="#{line.nome}" />
 					</p:column>
 
@@ -86,7 +91,7 @@
 				<p:panel style="text-align: center;">
 					<p:commandButton value="#{msg.Incluir}"
 						icon="fa  fa-fw  fa-plus-circle"
-						action="#{iU02_01MBean.onNovoIngresso()}" update=""
+						action="#{iU02_01MBean.onNovoIngresso()}" update="novoIngresso"
 						oncomplete="PF('dialogNovoIngressoWV').show()"
 						styleClass="button_principal">
 						<p:resetInput target="" />
@@ -97,7 +102,17 @@
 						update="" styleClass="button_principal">
 						<p:resetInput target="" />
 					</p:commandButton>
-
+					<p:commandButton value="#{msg.ativar}"
+						icon="fa  fa-fw  fa-thumbs-o-up" id="btnAtivar"
+						action="#{iU02_01MBean.onAtivarIngresso()}"
+						disabled="#{iU02_01MBean.buttonExcluirIsDisable()}" oncomplete=""
+						process="@this"
+						update="linesTable,formCadastroDeIngressos:btnEditar,
+						 						 formCadastroDeIngressos:btnExcluir,
+						 						 formCadastroDeIngressos:btnAtivar "
+						styleClass="button_ativar">
+						<p:resetInput target="" />
+					</p:commandButton>
 					<p:commandButton value="#{msg.Excluir}"
 						icon="fa  fa-fw  fa-times-circle" id="btnExcluir"
 						action="#{iU02_01MBean.onExcluirIngresso()}"
@@ -113,7 +128,7 @@
 
 
 		</h:form>
-		<!-- <ui:include src="/.xhtml" />
-		<ui:include src="/editarIngresso.xhtml" /> -->
+		<ui:include src="/novoIngresso.xhtml" />
+		<ui:include src="/editarIngresso.xhtml" />
 	</ui:define>
 </ui:composition>

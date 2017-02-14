@@ -51,6 +51,18 @@ public class IU02_01MBean implements Serializable {
 		return "config?faces-redirect=true";
 	}
 	
+	public void onAtivarIngresso(){
+		for(int i=0; i < this.ingressosSelecionados.size();i++){
+			if( ingressosSelecionados.get(i).getAtivo() == false){
+				ingressosSelecionados.get(i).setAtivo(true);
+			} else{
+				ingressosSelecionados.get(i).setAtivo(false);
+			}
+			dao.salvar(ingressosSelecionados.get(i));
+		}
+		this.onBuscar();
+	}
+	
 	public void onExcluirIngresso(){
 		for(int i=0; i< this.ingressosSelecionados.size();i++){
 			this.viewModel.removerIngresso(this.ingressosSelecionados.get(i).getId());

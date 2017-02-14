@@ -52,17 +52,17 @@
 
 				<p:panel style="text-align: center;">
 
-					<p:commandButton value="Salvar" styleClass="button_principal"
+					<p:commandButton value="#{msg.Salvar}" styleClass="button_principal"
 						icon="fa  fa-fw  fa-floppy-o"
 						action="#{iU01_01MBean.onSaveNovoProduto()}"
 						update="formCadastroDeProdutos:linesTable" 
 						oncomplete="PF('dialogNovoProdutoWV').hide();"/>
 
-					<p:commandButton value="Reiniciar Campos"
+					<p:commandButton value="#{msg.ReiniciarCampos}"
 						action="#{iU01_01MBean.onNovoProduto()}"
 						icon="fa  fa-fw  fa-recycle" update="novoProduto" />
 
-					<p:commandButton value="Cancelar" styleClass="button_cancel"
+					<p:commandButton value="#{msg.Cancelar}" styleClass="button_cancel"
 						icon="fa  fa-fw  fa-trash"
 						oncomplete="PF('dialogNovoProdutoWV').hide();" />
 				</p:panel>

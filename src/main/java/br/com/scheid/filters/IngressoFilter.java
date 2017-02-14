@@ -4,7 +4,7 @@ public class IngressoFilter {
 
 	private Long id;
 	private String nome;
-	private float valor;
+	private float preco;
 	private Long quantidade;
 	
 	public Long getId() {
@@ -19,11 +19,11 @@ public class IngressoFilter {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public float getValor() {
-		return valor;
+	public float getPreco() {
+		return preco;
 	}
-	public void setValor(float valor) {
-		this.valor = valor;
+	public void setPreco(float preco) {
+		this.preco = preco;
 	}
 	public Long getQuantidade() {
 		return quantidade;
