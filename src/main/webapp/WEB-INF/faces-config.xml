@@ -12,6 +12,10 @@
 			<base-name>br.com.scheid.locale.bundle</base-name>
 			<var>msg</var>
 		</resource-bundle>
+		<resource-bundle>
+			<base-name>br.com.scheid.locale.ingressos</base-name>
+			<var>tagsIngressos</var>
+		</resource-bundle>
 	</application>
 
 </faces-config>

@@ -51,7 +51,6 @@ public class IU01_01MBean implements Serializable{
 			} else{
 				produtosSelecionados.get(i).setAtivo(false);
 			}
-			System.out.println("Batata");
 			dao.salvar(produtosSelecionados.get(i));
 		}
 		this.onBuscar();
