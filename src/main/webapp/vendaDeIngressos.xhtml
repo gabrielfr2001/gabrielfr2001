@@ -1,3 +1,4 @@
+
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
@@ -14,5 +15,23 @@
 			}
 		</script>
 		
-
-</html>
+		<h1 class="aw-page-title"><i class="fa fa-ticket" aria-hidden="true"></i> 
+			<h:outputLabel value=" #{tagsVenderIngressos.titulo}" />
+		</h1>
+		
+		<h:form id="formVendaDeIngressos">
+		
+			<p:growl id="msg" autoUpdate="true" />
+				<p:panel  >
+				 <p:repeat value="#{iU03_01MBean.ingressos5em5}" var="listaDeListas">
+					<p:ring id="custom" value="#{listaDeListas}" var="ingresso" >
+       					 <p:commandButton styleClass="btn" value="#{ingresso.nome} &#10; #{tagsIngressos.moeda}#{ingresso.preco}">
+       					 	<f:setPropertyActionListener value="#{ingresso}" target="#{iU03_01MBean.ingressoSelecionado}" />
+       					 </p:commandButton>
+    				</p:ring>
+    			 </p:repeat>
+				</p:panel>
+		</h:form>
+		
+	</ui:define>
+</ui:composition>
