@@ -7,23 +7,35 @@
 
 	<ui:define name="content">
 
-		<h1 class="aw-page-title">
-			<h:outputLabel value="#{msg.painelDeControle}" />
+		<h1 class="aw-page-title"><i class="fa fa-cogs" aria-hidden="true"></i> 
+			<h:outputLabel value=" #{msg.painelDeControle}" />
 		</h1>
 
 		<h:form id="formPainelDeControle">
 
-			<p:panel header="#{msg.painelDeControle_Idioma}" toggleable="true">
-				<h:panelGrid columns="1">
+			<p:panel toggleable="true">
+			<f:facet name="header"> <i class="fa fa-language" aria-hidden="true"></i>
+											<h:outputLabel value=" #{msg.painelDeControle_Idioma}" />
+										</f:facet>
+				<h:panelGrid columns="2">
 					<h:outputText value="#{msg.internacionalizacaoTexto}" />
 					<p:selectOneMenu value="#{usuarioMBean.linguaEscolhida}" >
 						<f:selectItem itemValue="pt" itemLabel="Português" />
 						<f:selectItem itemValue="en" itemLabel="English" />
 					</p:selectOneMenu>
-					<p:commandButton action="#{usuarioMBean.alterarIdioma}" styleClass="button_principal"
+					<p:commandButton  
 						value="#{msg.internacionalizacaoTrocar}" icon="fa  fa-fw   fa-exchange"/>
 				</h:panelGrid>
 			</p:panel>
+			<p:panel toggleable="true"> <f:facet name="header"> <i class="fa fa-pie-chart" aria-hidden="true"></i>
+											<h:outputLabel value=" #{tagsConfig.titulo}" />
+										</f:facet>
+					<h:outputText value="#{msg.Ativo}: " /><br/>
+      			    <p:inputSwitch value="#{usuarioMBean.gerenciarEstoque}" />
+			
+				
+			</p:panel>
+			
 		</h:form>
 
 		<h:form>

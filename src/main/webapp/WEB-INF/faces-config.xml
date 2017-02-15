@@ -16,6 +16,10 @@
 			<base-name>br.com.scheid.locale.ingressos</base-name>
 			<var>tagsIngressos</var>
 		</resource-bundle>
+				<resource-bundle>
+			<base-name>br.com.scheid.locale.config</base-name>
+			<var>tagsConfig</var>
+		</resource-bundle>
 	</application>
 
 </faces-config>

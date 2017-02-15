@@ -19,9 +19,18 @@ public class UsuarioMBean implements Serializable {
 	
 	public String linguaEscolhida = "pt";
 	public Locale locale;
+	public Boolean gerenciarEstoque = false;
 	
 	
 	
+	public Boolean getGerenciarEstoque() {
+		return gerenciarEstoque;
+	}
+
+	public void setGerenciarEstoque(Boolean gerenciarEstoque) {
+		this.gerenciarEstoque = gerenciarEstoque;
+	}
+
 	public String init(){
 		return "config?faces-redirect=true";
 	}
