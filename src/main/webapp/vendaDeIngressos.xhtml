@@ -14,24 +14,31 @@
 				event.preventDefault();
 			}
 		</script>
-		
-		<h1 class="aw-page-title"><i class="fa fa-ticket" aria-hidden="true"></i> 
+
+		<h1 class="aw-page-title">
+			<i class="fa fa-ticket" aria-hidden="true"></i>
 			<h:outputLabel value=" #{tagsVenderIngressos.titulo}" />
 		</h1>
-		
+
 		<h:form id="formVendaDeIngressos">
-		
+
 			<p:growl id="msg" autoUpdate="true" />
-				<p:panel  >
-				 <p:repeat value="#{iU03_01MBean.ingressos5em5}" var="listaDeListas">
-					<p:ring id="custom" value="#{listaDeListas}" var="ingresso" >
-       					 <p:commandButton styleClass="btn" value="#{ingresso.nome} &#10; #{tagsIngressos.moeda}#{ingresso.preco}">
-       					 	<f:setPropertyActionListener value="#{ingresso}" target="#{iU03_01MBean.ingressoSelecionado}" />
-       					 </p:commandButton>
-    				</p:ring>
-    			 </p:repeat>
-				</p:panel>
+			<p:dataGrid var="ingresso" value="#{iU03_01MBean.todosIngressos}"
+				columns="5" layout="grid" rows="10" paginator="true"
+				paginatorAlwaysVisible="true">
+				<span class="btn">
+					<h:outputLabel value="#{ingresso.nome}" /><br/>
+					<h:outputLabel value="#{tagsIngressos.moeda}: #{ingresso.preco}" /><br/>
+					<button class="button button-circle button-raised button-primary">
+						<i class="fa fa-plus"></i>
+					</button>
+					
+				</span>
+				
+			</p:dataGrid>
+
+
 		</h:form>
-		
+
 	</ui:define>
 </ui:composition>
