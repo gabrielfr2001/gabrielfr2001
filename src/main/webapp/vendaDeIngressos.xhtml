@@ -12,7 +12,9 @@
 			window.onload = function(){
 				$('.js-sidebar, .js-content').toggleClass('is-toggled');
 				event.preventDefault();
+
 			}
+			
 		</script>
 
 		<h1 class="aw-page-title">
@@ -21,20 +23,23 @@
 		</h1>
 
 		<h:form id="formVendaDeIngressos">
-
+			
+			
 			<p:growl id="msg" autoUpdate="true" />
 			<p:dataGrid var="ingresso" value="#{iU03_01MBean.todosIngressos}"
 				columns="5" layout="grid" rows="10" paginator="true"
 				paginatorAlwaysVisible="true">
-				<span class="btn">
-					<h:outputLabel value="#{ingresso.nome}" /><br/>
-					<h:outputLabel value="#{tagsIngressos.moeda}: #{ingresso.preco}" /><br/>
-					<button class="button button-circle button-raised button-primary">
-						<i class="fa fa-plus"></i>
-					</button>
-					
-				</span>
-				
+					<div class="btn" >
+						<p:commandLink styleClass="comprar" action="#{iU03_01MBean.adicionarIngresso()}"> 
+								<f:setPropertyActionListener value="#{ingresso}" target="#{iU03_01MBean.ingressoSelecionado}" />
+								<h:inputText styleClass="selected" value="#{ingresso.id}" style="display: none;"/>
+								<h:outputLabel styleClass="tagsuperior" value="#{ingresso.nome}" /><br/>
+								<h:outputLabel styleClass="tagvalor" value="#{tagsIngressos.moeda}: #{ingresso.preco}" /><br/>
+								<span class="button button-circle button-raised button-primary">
+     									 <i class="fa fa-plus"></i>
+   								</span>
+   							</p:commandLink>
+					</div>
 			</p:dataGrid>
 
 

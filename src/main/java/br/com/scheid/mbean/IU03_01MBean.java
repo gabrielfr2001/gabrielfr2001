@@ -33,7 +33,7 @@ public class IU03_01MBean implements Serializable {
 	
 	public void Init(){
 		
-		dao = new GenericDAO();
+ 		dao = new GenericDAO();
 		this.filter = new IngressoFilter();
 		this.viewModel = new IU03_01ViewModel();
 		
@@ -56,7 +56,17 @@ public class IU03_01MBean implements Serializable {
 			}
 		}
 		
-		
+		this.ingressoSelecionado = new Ingresso();
+	}
+	
+	public void adicionarIngresso(){
+		/*for(Ingresso i : todosIngressos){
+			if(i.getId() == this.ingressoSelecionado.getId()){
+				this.ingressosSelecionados.add(i);
+				break;
+			}
+		}*/
+		System.out.println(this.ingressoSelecionado.getId());
 	}
 	
 	public IU03_01MBean(){
@@ -89,6 +99,10 @@ public class IU03_01MBean implements Serializable {
 
 	public void setIngressoSelecionado(Ingresso ingressoSelecionado) {
 		this.ingressoSelecionado = ingressoSelecionado;
+	}
+
+	public Ingresso getIngressoSelecionado() {
+		return ingressoSelecionado;
 	}
 
 	public List<Ingresso> getIngressosSelecionados() {
