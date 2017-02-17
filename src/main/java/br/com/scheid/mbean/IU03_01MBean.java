@@ -10,6 +10,7 @@ import javax.faces.bean.ViewScoped;
 import br.com.scheid.dao.GenericDAO;
 import br.com.scheid.filters.IngressoFilter;
 import br.com.scheid.model.Ingresso;
+import br.com.scheid.model.IngressoVendido;
 import br.com.scheid.viewmodel.IU03_01ViewModel;
 
 @ManagedBean
@@ -29,14 +30,16 @@ public class IU03_01MBean implements Serializable {
 	public Ingresso ingressoSelecionado;
 	public int linhas;
 	public List<Ingresso> ingressosSelecionados;
-	
+	public List<IngressoVendido> ingressosVendidos;
+	public float totalComanda;
 	
 	public void Init(){
 		
  		dao = new GenericDAO();
 		this.filter = new IngressoFilter();
 		this.viewModel = new IU03_01ViewModel();
-		
+		this.totalComanda = 0;
+		this.ingressosVendidos = new ArrayList<>();
 		this.todosIngressos = new ArrayList<Ingresso>();
 		this.todosIngressos = this.viewModel.buscarIngresso(this.filter);
 		this.ingressos5em5 = new ArrayList<List<Ingresso>>();
@@ -60,13 +63,28 @@ public class IU03_01MBean implements Serializable {
 	}
 	
 	public void adicionarIngresso(){
-		/*for(Ingresso i : todosIngressos){
-			if(i.getId() == this.ingressoSelecionado.getId()){
-				this.ingressosSelecionados.add(i);
+		Boolean existe = false;
+		for(IngressoVendido iv : this.ingressosVendidos){
+			if(iv.getIngresso().getId() == this.ingressoSelecionado.getId()){
+				iv.setQuantidade(iv.getQuantidade() + 1);
+				existe = true;
 				break;
 			}
-		}*/
-		System.out.println(this.ingressoSelecionado.getId());
+		}
+		
+		if(!existe){
+			this.ingressosVendidos.add(new IngressoVendido(this.getIngressoSelecionado(), 1));
+		}
+		
+		this.calcularComanda();
+	}
+	
+	public void calcularComanda(){
+		float total = 0;
+		for(IngressoVendido iv : ingressosVendidos){
+				total += iv.getIngresso().getPreco() * iv.getQuantidade();
+		}
+		this.totalComanda = total;
 	}
 	
 	public IU03_01MBean(){
@@ -112,4 +130,19 @@ public class IU03_01MBean implements Serializable {
 	public void setIngressosSelecionados(List<Ingresso> ingressosSelecionados) {
 		this.ingressosSelecionados = ingressosSelecionados;
 	}
+
+	public List<IngressoVendido> getIngressosVendidos() {
+		return ingressosVendidos;
+	}
+
+	public Float getTotalComanda() {
+		return totalComanda;
+	}
+
+	public void setTotalComanda(Float totalComanda) {
+		this.totalComanda = totalComanda;
+	}
+
+	
 }
+

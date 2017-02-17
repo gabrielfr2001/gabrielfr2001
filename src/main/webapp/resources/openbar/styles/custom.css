@@ -2,9 +2,49 @@
 body {
 	margin: 0;
 	font-size: 13px;
-	font-family: BlinkMacSystemFont,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+	font-family: BlinkMacSystemFont,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif !important;
 }
 
+.vendaDeIngressos{
+	display: block;
+}
+
+.vendaDeIngressos .ui-datagrid-content{
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+}
+
+.tabelacomanda{
+	width: 100%;
+	
+}
+
+.comanda {
+}
+.console {
+	display: flex;
+}
+.div-direita{
+	width: 495px;
+    margin-left: 5px;
+}
+
+.min-width-10{
+	min-width: 10px;
+}
+
+.flexbox-container {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+.containerTelaDeVendas{
+	display: flex;
+	flex-flow: row nowrap;
+}
 /* TABVIEW */
 .ui-tabs .ui-tabs-nav li.ui-tabs-selected a {
 	color: #555;
@@ -700,4 +740,5 @@ body {
 .ui-grid .ui-grid-row {
 	justify-content: center;
 }
+
     

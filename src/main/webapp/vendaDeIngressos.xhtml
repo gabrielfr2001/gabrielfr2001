@@ -26,23 +26,60 @@
 			
 			
 			<p:growl id="msg" autoUpdate="true" />
-			<p:dataGrid var="ingresso" value="#{iU03_01MBean.todosIngressos}"
-				columns="5" layout="grid" rows="10" paginator="true"
-				paginatorAlwaysVisible="true">
-					<div class="btn" >
-						<p:commandLink styleClass="comprar" action="#{iU03_01MBean.adicionarIngresso()}"> 
-								<f:setPropertyActionListener value="#{ingresso}" target="#{iU03_01MBean.ingressoSelecionado}" />
-								<h:inputText styleClass="selected" value="#{ingresso.id}" style="display: none;"/>
-								<h:outputLabel styleClass="tagsuperior" value="#{ingresso.nome}" /><br/>
-								<h:outputLabel styleClass="tagvalor" value="#{tagsIngressos.moeda}: #{ingresso.preco}" /><br/>
-								<span class="button button-circle button-raised button-primary">
-     									 <i class="fa fa-plus"></i>
-   								</span>
-   							</p:commandLink>
-					</div>
-			</p:dataGrid>
+			<div class="containerTelaDeVendas">
+					
+					<!-- Container da parte esquerda que recebe os botões para que seja escolhido os produtos a serem selecionados -->
+					<p:dataGrid var="ingresso" value="#{iU03_01MBean.todosIngressos}"
+						columns="1" layout="grid"  paginator="true" rows="10"
+						paginatorAlwaysVisible="true" styleClass="vendaDeIngressos">
+							<div class="btn" >
+								<p:commandLink styleClass="comprar" action="#{iU03_01MBean.adicionarIngresso()}" update="formVendaDeIngressos:comanda"> 
+										<f:setPropertyActionListener value="#{ingresso}" target="#{iU03_01MBean.ingressoSelecionado}" />
+										<h:inputText styleClass="selected" value="#{ingresso.id}" style="display: none;"/>
+										<h:outputLabel styleClass="tagsuperior" value="#{ingresso.nome}" /><br/>
+										<h:outputLabel styleClass="tagvalor" value="#{tagsIngressos.moeda}: #{ingresso.preco}" /><br/>
+										<span class="button button-circle button-raised button-primary">
+		     									 <i class="fa fa-plus"></i>
+		   								</span>
+					   			</p:commandLink>
+							</div>
+					</p:dataGrid>
+					<!-- fim do container dos botoes para seleção de produto! -->
+						
+					<!-- container da parte direita -->
+					<div class="div-direita">
+						<!-- Container da parte direita superior que receberá a comanda! -->
+						<p:dataTable rowStyleClass="min-width-10" style="width: auto;" scrollable="true" sortBy="#{ingressoVendido.ingresso.nome}" id="comanda" var="ingressoVendido" value="#{iU03_01MBean.ingressosVendidos}" ><f:facet name="header">
+												 <i class="fa fa-calculator" aria-hidden="true" ></i>Comanda</f:facet>
+							
+							<p:column style="width: 13px;">
+								<h:outputText value="#{ingressoVendido.quantidade}x" />
+							</p:column>
+							
+							<p:column headerText="Ingresso">
+								<h:outputText value="#{ingressoVendido.ingresso.nome}" />
+							</p:column>
+							
+							<p:column headerText="#{tagsIngressos.moeda}">
+								<h:outputText value="#{ingressoVendido.ingresso.preco * ingressoVendido.quantidade}" />
+							</p:column>
+							<f:facet name="footer">
+   								<p:column colspan="2" style="text-align: right;"> 
+									<h:outputText value="Total:" />
+								</p:column>
+								<p:column>
+									<h:outputText value="#{iU03_01MBean.totalComanda}" />
+								</p:column>
+    						</f:facet>
+						</p:dataTable>
+						<!-- Fim do container que recebe a comanda! -->
+								
+						<!-- divisor que receberá um "histórico das ultimas vendas efetuadas" -->
 
-
+						<!-- Fim do container -->
+					</div>	
+					<!-- fim do container externo da direita -->
+			</div>
 		</h:form>
 
 	</ui:define>
