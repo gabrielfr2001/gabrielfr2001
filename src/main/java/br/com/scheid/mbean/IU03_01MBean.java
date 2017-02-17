@@ -23,6 +23,7 @@ public class IU03_01MBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	public List<Ingresso> todosIngressos;
+	public List<Ingresso> todosIngressosAtivados;
 	public List<List<Ingresso>> ingressos5em5;
 	public GenericDAO dao;
 	public IngressoFilter filter;
@@ -41,7 +42,12 @@ public class IU03_01MBean implements Serializable {
 		this.totalComanda = 0;
 		this.ingressosVendidos = new ArrayList<>();
 		this.todosIngressos = new ArrayList<Ingresso>();
+		this.todosIngressosAtivados = new ArrayList<Ingresso>();
 		this.todosIngressos = this.viewModel.buscarIngresso(this.filter);
+		for(int i=0;i<todosIngressos.size();i++){
+			if(todosIngressos.get(i).getAtivo())
+				todosIngressosAtivados.add(todosIngressos.get(i));
+		}
 		this.ingressos5em5 = new ArrayList<List<Ingresso>>();
 		
 		int i = 0;
@@ -141,6 +147,14 @@ public class IU03_01MBean implements Serializable {
 
 	public void setTotalComanda(Float totalComanda) {
 		this.totalComanda = totalComanda;
+	}
+
+	public List<Ingresso> getTodosIngressosAtivados() {
+		return todosIngressosAtivados;
+	}
+
+	public void setTodosIngressosAtivados(List<Ingresso> todosIngressosAtivados) {
+		this.todosIngressosAtivados = todosIngressosAtivados;
 	}
 
 	

@@ -7,6 +7,14 @@ body {
 
 .vendaDeIngressos{
 	display: block;
+	width: 65%;
+}
+
+.tabelaComanda{
+	height: 70%;
+}
+.div-direita .ui-datatable .ui-datatable-scrollable-body {
+    min-height: 75%;
 }
 
 .vendaDeIngressos .ui-datagrid-content{
@@ -26,12 +34,13 @@ body {
 	display: flex;
 }
 .div-direita{
-	width: 495px;
+    width: 35%;
     margin-left: 5px;
 }
 
 .min-width-10{
 	min-width: 10px;
+	text-align: center;
 }
 
 .flexbox-container {

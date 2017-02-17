@@ -29,8 +29,8 @@
 			<div class="containerTelaDeVendas">
 					
 					<!-- Container da parte esquerda que recebe os botões para que seja escolhido os produtos a serem selecionados -->
-					<p:dataGrid var="ingresso" value="#{iU03_01MBean.todosIngressos}"
-						columns="1" layout="grid"  paginator="true" rows="10"
+					<p:dataGrid var="ingresso" value="#{iU03_01MBean.todosIngressosAtivados}"
+						columns="1" layout="grid"  paginator="true" rows="8"
 						paginatorAlwaysVisible="true" styleClass="vendaDeIngressos">
 							<div class="btn" >
 								<p:commandLink styleClass="comprar" action="#{iU03_01MBean.adicionarIngresso()}" update="formVendaDeIngressos:comanda"> 
@@ -48,11 +48,12 @@
 						
 					<!-- container da parte direita -->
 					<div class="div-direita">
+					
 						<!-- Container da parte direita superior que receberá a comanda! -->
-						<p:dataTable rowStyleClass="min-width-10" style="width: auto;" scrollable="true" sortBy="#{ingressoVendido.ingresso.nome}" id="comanda" var="ingressoVendido" value="#{iU03_01MBean.ingressosVendidos}" ><f:facet name="header">
+						<p:dataTable rowStyleClass="min-width-10" styleClass="tabelaComanda" scrollable="true" sortBy="#{ingressoVendido.ingresso.nome}" id="comanda" var="ingressoVendido" value="#{iU03_01MBean.ingressosVendidos}" ><f:facet name="header">
 												 <i class="fa fa-calculator" aria-hidden="true" ></i>Comanda</f:facet>
 							
-							<p:column style="width: 13px;">
+							<p:column style="width: 10%; text-align: center;">
 								<h:outputText value="#{ingressoVendido.quantidade}x" />
 							</p:column>
 							
@@ -60,23 +61,24 @@
 								<h:outputText value="#{ingressoVendido.ingresso.nome}" />
 							</p:column>
 							
-							<p:column headerText="#{tagsIngressos.moeda}">
+							<p:column style="width: 20%;" headerText="#{tagsIngressos.moeda}">
 								<h:outputText value="#{ingressoVendido.ingresso.preco * ingressoVendido.quantidade}" />
 							</p:column>
 							<f:facet name="footer">
    								<p:column colspan="2" style="text-align: right;"> 
-									<h:outputText value="Total:" />
+									<h:outputText value="Total: " />
 								</p:column>
 								<p:column>
-									<h:outputText value="#{iU03_01MBean.totalComanda}" />
+									<h:outputText value=" #{iU03_01MBean.totalComanda}" />
 								</p:column>
     						</f:facet>
 						</p:dataTable>
 						<!-- Fim do container que recebe a comanda! -->
 								
 						<!-- divisor que receberá um "histórico das ultimas vendas efetuadas" -->
-
+						
 						<!-- Fim do container -->
+					
 					</div>	
 					<!-- fim do container externo da direita -->
 			</div>
