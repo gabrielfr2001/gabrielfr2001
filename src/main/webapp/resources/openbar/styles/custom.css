@@ -21,6 +21,7 @@ body {
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: center;
+	height: 575.25px;
 }
 
 .tabelacomanda{

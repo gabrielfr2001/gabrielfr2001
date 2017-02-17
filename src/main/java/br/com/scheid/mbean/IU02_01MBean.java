@@ -60,6 +60,7 @@ public class IU02_01MBean implements Serializable {
 			}
 			dao.salvar(ingressosSelecionados.get(i));
 		}
+		ingressosSelecionados.clear();
 		this.onBuscar();
 	}
 	

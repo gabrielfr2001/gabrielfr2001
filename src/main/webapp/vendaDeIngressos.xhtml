@@ -33,7 +33,8 @@
 						columns="1" layout="grid"  paginator="true" rows="8"
 						paginatorAlwaysVisible="true" styleClass="vendaDeIngressos">
 							<div class="btn" >
-								<p:commandLink styleClass="comprar" action="#{iU03_01MBean.adicionarIngresso()}" update="formVendaDeIngressos:comanda"> 
+								<p:commandLink styleClass="comprar" action="#{iU03_01MBean.adicionarIngresso()}" 
+											   update="formVendaDeIngressos:comanda, formVendaDeIngressos:panelBtns"> 
 										<f:setPropertyActionListener value="#{ingresso}" target="#{iU03_01MBean.ingressoSelecionado}" />
 										<h:inputText styleClass="selected" value="#{ingresso.id}" style="display: none;"/>
 										<h:outputLabel styleClass="tagsuperior" value="#{ingresso.nome}" /><br/>
@@ -50,19 +51,31 @@
 					<div class="div-direita">
 					
 						<!-- Container da parte direita superior que receberá a comanda! -->
-						<p:dataTable rowStyleClass="min-width-10" styleClass="tabelaComanda" scrollable="true" sortBy="#{ingressoVendido.ingresso.nome}" id="comanda" var="ingressoVendido" value="#{iU03_01MBean.ingressosVendidos}" ><f:facet name="header">
+						<p:dataTable  styleClass="tabelaComanda" scrollable="true" 
+								     sortBy="#{ingressoVendido.ingresso.nome}" id="comanda" var="ingressoVendido"
+								     value="#{iU03_01MBean.ingressosVendidos}" selectionMode="single"
+								     selection="#{iU03_01MBean.ingressosSelecionados}" rowKey="#{iU03_01MBean.ingressosVendidos.iterator()}"><f:facet name="header">
 												 <i class="fa fa-calculator" aria-hidden="true" ></i>Comanda</f:facet>
 							
-							<p:column style="width: 10%; text-align: center;">
+							<p:column headerText="Qtd" style="width: 10%; text-align: center;">
 								<h:outputText value="#{ingressoVendido.quantidade}x" />
 							</p:column>
 							
-							<p:column headerText="Ingresso">
+							<p:column headerText="Ingresso" style="width: 60%;">
 								<h:outputText value="#{ingressoVendido.ingresso.nome}" />
 							</p:column>
 							
 							<p:column style="width: 20%;" headerText="#{tagsIngressos.moeda}">
 								<h:outputText value="#{ingressoVendido.ingresso.preco * ingressoVendido.quantidade}" />
+							</p:column>
+							<p:column headerText="x">
+								<p:commandButton icon="fa  fa-fw  fa-times-circle" id="btnExcluir" 
+												 styleClass="button_cancel"
+												 update="formVendaDeIngressos:comanda, formVendaDeIngressos:panelBtns" 
+												 style="text-align: center; padding-left: 6px;"
+												 action="#{iU03_01MBean.onRemoverIngresso()}">
+									<f:setPropertyActionListener value="#{ingressoVendido.ingresso.id}" target="#{iU03_01MBean.idIngressoRemover}" />				 
+								</p:commandButton>
 							</p:column>
 							<f:facet name="footer">
    								<p:column colspan="2" style="text-align: right;"> 
@@ -73,6 +86,14 @@
 								</p:column>
     						</f:facet>
 						</p:dataTable>
+						<p:panel style="text-align: center;" id="panelBtns">
+							<p:commandButton icon="fa fa-fw fa-money" value="Finalizar Compra" styleClass="button_principal"
+											 disabled="#{empty iU03_01MBean.ingressosVendidos}" />
+							<p:commandButton icon="fa fa-fw fa-trash-o" value="Cancelar" styleClass="button_cancel"
+											 action="#{iU03_01MBean.onCancelar()}"
+											 update="formVendaDeIngressos:comanda, formVendaDeIngressos:panelBtns"
+											 disabled="#{empty iU03_01MBean.ingressosVendidos}" />			
+						</p:panel>
 						<!-- Fim do container que recebe a comanda! -->
 								
 						<!-- divisor que receberá um "histórico das ultimas vendas efetuadas" -->

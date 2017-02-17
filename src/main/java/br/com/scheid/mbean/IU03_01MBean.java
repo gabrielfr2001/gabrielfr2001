@@ -1,11 +1,11 @@
 package br.com.scheid.mbean;
 
-import java.io.Serializable;
+import java.io.Serializable; 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 
 import br.com.scheid.dao.GenericDAO;
 import br.com.scheid.filters.IngressoFilter;
@@ -14,7 +14,7 @@ import br.com.scheid.model.IngressoVendido;
 import br.com.scheid.viewmodel.IU03_01ViewModel;
 
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class IU03_01MBean implements Serializable {
 	
 	/**
@@ -30,6 +30,7 @@ public class IU03_01MBean implements Serializable {
 	public IU03_01ViewModel viewModel;
 	public Ingresso ingressoSelecionado;
 	public int linhas;
+	public Long idIngressoRemover;
 	public List<Ingresso> ingressosSelecionados;
 	public List<IngressoVendido> ingressosVendidos;
 	public float totalComanda;
@@ -40,7 +41,8 @@ public class IU03_01MBean implements Serializable {
 		this.filter = new IngressoFilter();
 		this.viewModel = new IU03_01ViewModel();
 		this.totalComanda = 0;
-		this.ingressosVendidos = new ArrayList<>();
+		this.ingressosVendidos = new ArrayList<IngressoVendido>();
+		this.ingressosSelecionados = new ArrayList<Ingresso>();
 		this.todosIngressos = new ArrayList<Ingresso>();
 		this.todosIngressosAtivados = new ArrayList<Ingresso>();
 		this.todosIngressos = this.viewModel.buscarIngresso(this.filter);
@@ -68,6 +70,7 @@ public class IU03_01MBean implements Serializable {
 		this.ingressoSelecionado = new Ingresso();
 	}
 	
+
 	public void adicionarIngresso(){
 		Boolean existe = false;
 		for(IngressoVendido iv : this.ingressosVendidos){
@@ -83,6 +86,24 @@ public class IU03_01MBean implements Serializable {
 		}
 		
 		this.calcularComanda();
+	}
+	
+	public void onRemoverIngresso(){
+		for(IngressoVendido iv : ingressosVendidos){
+			if(iv.getIngresso().getId() == this.idIngressoRemover){
+				if(iv.getQuantidade() > 1){
+					iv.setQuantidade(iv.getQuantidade() - 1);
+				}else {
+					this.ingressosVendidos.remove(iv);
+				}
+				this.calcularComanda();
+				break;
+			}
+		}
+	}
+	
+	public void onCancelar(){
+		this.ingressosVendidos.clear();
 	}
 	
 	public void calcularComanda(){
@@ -157,6 +178,19 @@ public class IU03_01MBean implements Serializable {
 		this.todosIngressosAtivados = todosIngressosAtivados;
 	}
 
+	public void setIngressosVendidos(List<IngressoVendido> ingressosVendidos) {
+		this.ingressosVendidos = ingressosVendidos;
+	}
+	public void setTotalComanda(float totalComanda) {
+		this.totalComanda = totalComanda;
+	}
+
+	public Long getIdIngressoRemover() {
+		return idIngressoRemover;
+	}
+	public void setIdIngressoRemover(Long idIngressoRemover) {
+		this.idIngressoRemover = idIngressoRemover;
+	}
 	
 }
 
