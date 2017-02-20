@@ -11,29 +11,33 @@
 			window.onload = function(){
 				$('.js-sidebar, .js-content').toggleClass('is-toggled');
 				event.preventDefault();
+
+				$(".is-selected").removeClass("is-selected");
+				$("#ingressos").addClass("is-selected");
 			}
 		</script>
-
+		
+		<p:growl id="msg" autoUpdate="true" />
 
 		<h1 class="aw-page-title">
 			<i class="fa fa-ticket" aria-hidden="true"></i>
 			<h:outputText value=" #{tagsIngressos.titulo}" />
 		</h1>
 		<h:form id="formCadastroDeIngressos">
-
-			<p:growl id="msg" autoUpdate="true" />
-			<p:panel toggleable="false">
+			<p:panel toggleable="false" >
 				<f:facet name="header">
 					<h:outputText value=" #{tagsIngressos.subtitulo}" />
 				</f:facet>
 
 
 				<p:dataTable id="linesTable"
-					value="#{iU02_01MBean.ingressosCadastrados}" var="line"
-					selection="#{iU02_01MBean.ingressosSelecionados}"
+					value="#{ingressosMBean.ingressosCadastrados}" var="line"
+					selection="#{ingressosMBean.ingressosSelecionados}"
 					rowKey="#{line.id}" emptyMessage="#{tagsIngressos.nenhumingresso}"
-					paginator="true" rowSelectMode="ckeckbox" sortBy="#{line.nome}"
-					rows="10" reflow="true" style="margin-top: 10px">
+					paginator="true" rowSelectMode="ckeckbox" 
+					sortBy="#{line.nome}"
+					reflow="true"
+					rows="10" style="margin-top: 10px">
 					<p:ajax event="rowSelect"
 						update="formCadastroDeIngressos:btnEditar,
 								formCadastroDeIngressos:btnExcluir,
@@ -91,21 +95,21 @@
 				<p:panel style="text-align: center;">
 					<p:commandButton value="#{msg.Incluir}"
 						icon="fa  fa-fw  fa-plus-circle"
-						action="#{iU02_01MBean.onNovoIngresso()}" update="novoIngresso"
+						action="#{ingressosMBean.onNovoIngresso()}" update="novoIngresso"
 						oncomplete="PF('dialogNovoIngressoWV').show()"
 						styleClass="button_principal">
 						<p:resetInput target="" />
 					</p:commandButton>
 					<p:commandButton value="#{msg.Editar}" icon="fa  fa-fw  fa-wrench"
-						id="btnEditar" disabled="#{iU02_01MBean.buttonEditIsDisable()}"
+						id="btnEditar" disabled="#{ingressosMBean.buttonEditIsDisable()}"
 						onclick="PF('dialogEditarIngressoWV').show()" process="@this"
 						update="" styleClass="button_principal">
 						<p:resetInput target="" />
 					</p:commandButton>
 					<p:commandButton value="#{msg.ativar}"
 						icon="fa  fa-fw  fa-thumbs-o-up" id="btnAtivar"
-						action="#{iU02_01MBean.onAtivarIngresso()}"
-						disabled="#{iU02_01MBean.buttonExcluirIsDisable()}" oncomplete=""
+						action="#{ingressosMBean.onAtivarIngresso()}"
+						disabled="#{ingressosMBean.buttonExcluirIsDisable()}" oncomplete=""
 						process="@this"
 						update="linesTable,formCadastroDeIngressos:btnEditar,
 						 						 formCadastroDeIngressos:btnExcluir,
@@ -115,8 +119,8 @@
 					</p:commandButton>
 					<p:commandButton value="#{msg.Excluir}"
 						icon="fa  fa-fw  fa-times-circle" id="btnExcluir"
-						action="#{iU02_01MBean.onExcluirIngresso()}"
-						disabled="#{iU02_01MBean.buttonExcluirIsDisable()}"
+						action="#{ingressosMBean.onExcluirIngresso()}"
+						disabled="#{ingressosMBean.buttonExcluirIsDisable()}"
 						process="@this"
 						update="linesTable,formCadastroDeIngressos:btnEditar
 						 						 formCadastroDeIngressos:btnExcluir"
@@ -128,7 +132,7 @@
 
 
 		</h:form>
-		<ui:include src="/novoIngresso.xhtml" />
-		<ui:include src="/editarIngresso.xhtml" />
+		<ui:include src="/pages/ingressos/novoIngresso.xhtml" />
+		<ui:include src="/pages/ingressos/editarIngresso.xhtml" />
 	</ui:define>
 </ui:composition>

@@ -16,21 +16,14 @@ public class ProdutoQueryGenerator {
 		sql.append("Select x from " + Produto.class.getName() + " x ");
 		sql.append(" where 1=1");
 		if (pf.getNome() != null && !pf.getNome().equals("")) {
-
 			sql.append(" and UPPER(x.nome) LIKE :pNome ");
 			params.put("pNome", "%" + pf.getNome().toUpperCase() + "%");
-
 		}
 
 		if (pf.getDescricao() != null && !pf.getDescricao().equals("")) {
-
 			sql.append(" and UPPER(x.descricao) LIKE :pDescricao ");
 			params.put("pDescricao", "%" + pf.getDescricao().toUpperCase() + "%");
-
 		}
-
-		
-
 		return new QueryDTO(sql.toString(), params);
 	}
 	

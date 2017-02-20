@@ -13,6 +13,8 @@
 				$('.js-sidebar, .js-content').toggleClass('is-toggled');
 				event.preventDefault();
 
+				$(".is-selected").removeClass("is-selected");
+				$("#vendaIngressos").addClass("is-selected");
 			}
 			
 		</script>
@@ -29,13 +31,13 @@
 			<div class="containerTelaDeVendas">
 					
 					<!-- Container da parte esquerda que recebe os botões para que seja escolhido os produtos a serem selecionados -->
-					<p:dataGrid var="ingresso" value="#{iU03_01MBean.todosIngressosAtivados}"
+					<p:dataGrid var="ingresso" value="#{vendaIngressosMBean.todosIngressosAtivados}"
 						columns="1" layout="grid"  paginator="true" rows="8"
 						paginatorAlwaysVisible="true" styleClass="vendaDeIngressos">
 							<div class="btn" >
-								<p:commandLink styleClass="comprar" action="#{iU03_01MBean.adicionarIngresso()}" 
+								<p:commandLink styleClass="comprar" action="#{vendaIngressosMBean.adicionarIngresso()}" 
 											   update="formVendaDeIngressos:comanda, formVendaDeIngressos:panelBtns"> 
-										<f:setPropertyActionListener value="#{ingresso}" target="#{iU03_01MBean.ingressoSelecionado}" />
+										<f:setPropertyActionListener value="#{ingresso}" target="#{vendaIngressosMBean.ingressoSelecionado}" />
 										<h:inputText styleClass="selected" value="#{ingresso.id}" style="display: none;"/>
 										<h:outputLabel styleClass="tagsuperior" value="#{ingresso.nome}" /><br/>
 										<h:outputLabel styleClass="tagvalor" value="#{tagsIngressos.moeda}: #{ingresso.preco}" /><br/>
@@ -53,8 +55,8 @@
 						<!-- Container da parte direita superior que receberá a comanda! -->
 						<p:dataTable  styleClass="tabelaComanda" scrollable="true" 
 								     sortBy="#{ingressoVendido.ingresso.nome}" id="comanda" var="ingressoVendido"
-								     value="#{iU03_01MBean.ingressosVendidos}" selectionMode="single"
-								     selection="#{iU03_01MBean.ingressosSelecionados}" rowKey="#{iU03_01MBean.ingressosVendidos.iterator()}"><f:facet name="header">
+								     value="#{vendaIngressosMBean.ingressosVendidos}" selectionMode="single"
+								     selection="#{vendaIngressosMBean.ingressosSelecionados}" rowKey="#{vendaIngressosMBean.ingressosVendidos.iterator()}"><f:facet name="header">
 												 <i class="fa fa-calculator" aria-hidden="true" ></i>Comanda</f:facet>
 							
 							<p:column headerText="Qtd" style="width: 10%; text-align: center;">
@@ -73,8 +75,8 @@
 												 styleClass="button_cancel"
 												 update="formVendaDeIngressos:comanda, formVendaDeIngressos:panelBtns" 
 												 style="text-align: center; padding-left: 6px;"
-												 action="#{iU03_01MBean.onRemoverIngresso()}">
-									<f:setPropertyActionListener value="#{ingressoVendido.ingresso.id}" target="#{iU03_01MBean.idIngressoRemover}" />				 
+												 action="#{vendaIngressosMBean.onRemoverIngresso()}">
+									<f:setPropertyActionListener value="#{ingressoVendido.ingresso.id}" target="#{vendaIngressosMBean.idIngressoRemover}" />				 
 								</p:commandButton>
 							</p:column>
 							<f:facet name="footer">
@@ -82,17 +84,17 @@
 									<h:outputText value="Total: " />
 								</p:column>
 								<p:column>
-									<h:outputText value=" #{iU03_01MBean.totalComanda}" />
+									<h:outputText value=" #{vendaIngressosMBean.totalComanda}" />
 								</p:column>
     						</f:facet>
 						</p:dataTable>
 						<p:panel style="text-align: center;" id="panelBtns">
 							<p:commandButton icon="fa fa-fw fa-money" value="Finalizar Compra" styleClass="button_principal"
-											 disabled="#{empty iU03_01MBean.ingressosVendidos}" />
+											 disabled="#{empty vendaIngressosMBean.ingressosVendidos}" />
 							<p:commandButton icon="fa fa-fw fa-trash-o" value="Cancelar" styleClass="button_cancel"
-											 action="#{iU03_01MBean.onCancelar()}"
+											 action="#{vendaIngressosMBean.onCancelar()}"
 											 update="formVendaDeIngressos:comanda, formVendaDeIngressos:panelBtns"
-											 disabled="#{empty iU03_01MBean.ingressosVendidos}" />			
+											 disabled="#{empty vendaIngressosMBean.ingressosVendidos}" />			
 						</p:panel>
 						<!-- Fim do container que recebe a comanda! -->
 								

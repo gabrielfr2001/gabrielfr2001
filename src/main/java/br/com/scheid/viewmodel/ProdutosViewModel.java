@@ -7,11 +7,11 @@ import br.com.scheid.dao.ProdutoQueryGenerator;
 import br.com.scheid.filters.ProdutoFilter;
 import br.com.scheid.model.Produto;
 
-public class IU01_01ViewModel {
+public class ProdutosViewModel {
 
 	private GenericDAO dao;
 	
-	public IU01_01ViewModel(){
+	public ProdutosViewModel(){
 		this.dao = new GenericDAO();
 	}
 	
@@ -26,5 +26,16 @@ public class IU01_01ViewModel {
 	public List<Produto> buscarProduto(ProdutoFilter pf){
 		ProdutoQueryGenerator pqg = new ProdutoQueryGenerator();
 		return dao.listarTodos(Produto.class, pqg.getQuery(pf));
+	}
+	
+	public void ativarProdutos(List<Produto> produtos){
+		for(int i=0; i < produtos.size();i++){
+			if(produtos.get(i).getAtivo() == false){
+				produtos.get(i).setAtivo(true);
+			} else{
+				produtos.get(i).setAtivo(false);
+			}
+			this.dao.salvar(produtos.get(i));
+		}
 	}
 }

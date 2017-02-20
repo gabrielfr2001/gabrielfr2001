@@ -1,21 +1,21 @@
 package br.com.scheid.mbean;
 
-import java.io.Serializable; 
+import java.io.Serializable;   
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import br.com.scheid.dao.GenericDAO;
 import br.com.scheid.filters.IngressoFilter;
 import br.com.scheid.model.Ingresso;
-import br.com.scheid.model.IngressoVendido;
-import br.com.scheid.viewmodel.IU03_01ViewModel;
+import br.com.scheid.to.IngressoVendido;
+import br.com.scheid.viewmodel.VendaIngressosViewModel;
 
 @ManagedBean
-@SessionScoped
-public class IU03_01MBean implements Serializable {
+@ViewScoped
+public class VendaIngressosMBean implements Serializable {
 	
 	/**
 	 * 
@@ -27,7 +27,7 @@ public class IU03_01MBean implements Serializable {
 	public List<List<Ingresso>> ingressos5em5;
 	public GenericDAO dao;
 	public IngressoFilter filter;
-	public IU03_01ViewModel viewModel;
+	public VendaIngressosViewModel viewModel;
 	public Ingresso ingressoSelecionado;
 	public int linhas;
 	public Long idIngressoRemover;
@@ -39,7 +39,7 @@ public class IU03_01MBean implements Serializable {
 		
  		dao = new GenericDAO();
 		this.filter = new IngressoFilter();
-		this.viewModel = new IU03_01ViewModel();
+		this.viewModel = new VendaIngressosViewModel();
 		this.totalComanda = 0;
 		this.ingressosVendidos = new ArrayList<IngressoVendido>();
 		this.ingressosSelecionados = new ArrayList<Ingresso>();
@@ -114,7 +114,7 @@ public class IU03_01MBean implements Serializable {
 		this.totalComanda = total;
 	}
 	
-	public IU03_01MBean(){
+	public VendaIngressosMBean(){
 		this.Init();
 	}
 

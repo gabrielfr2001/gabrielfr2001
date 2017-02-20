@@ -4,16 +4,17 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-
+	
 <h:head>
+	
+	<f:view locale="#{applicationMBean.locale}" />
+	
 	<f:facet name="first">
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 	</f:facet>
 
 	<title>Open Bar | Gerenciador</title>
-	
-	
 	
 	<h:outputStylesheet library="openbar" name="styles/layout.css" />
 	<h:outputStylesheet library="openbar" name="styles/components.css" />
@@ -23,7 +24,9 @@
 </h:head>
 
 <h:body>
-
+	
+	<p:growl id="messages" />
+	
 	<header class="aw-topbar">
 		<h:graphicImage library="openbar" name="images/logo.png" height="7%" width="7%"/>
 		<a href="#" class="aw-toggle  js-toggle"><i class="fa  fa-bars"></i></a>

@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<p:dialog widgetVar="dialogManutencaoProdutoWV" id="dialogManutencaoProduto"
+		resizable="false" modal="true" width="550" dynamic="true" height="350">
+		
+		<p:ajax event="close"
+						 listener="#{produtosMBean.onNovoProduto()}" 
+						 update="formCadastroDeProdutos:linesTable"/>
+		
+		<f:facet name="header">
+			<h:outputText value="#{produtosMBean.getLabel('NovoProduto')}"  rendered="#{produtosMBean.produto.id == null}"  />
+			<h:outputText value="#{produtosMBean.produto.nome}" rendered="#{produtosMBean.produto.id != null}" />
+		</f:facet>
+		
+		<h:form id="manutencaoProduto">
+
+			<p:panel style="margin-bottom:20px;">
+
+				<h:panelGrid columns="3" cellpadding="5">
+					<h:panelGrid columns="1">
+
+						<p:outputLabel value="#{produtosMBean.getLabel('Nome')}"/>
+						<p:inputText title="Entre como nome do produto"
+							value="#{produtosMBean.produto.nome}" size="33">
+						</p:inputText>
+						<br />
+						<p:outputLabel value="#{produtosMBean.getLabel('Descricao')}" />
+						<p:inputTextarea rows="6" cols="35"
+							value="#{produtosMBean.produto.descricao}" />
+
+					</h:panelGrid>
+					<h:panelGrid columns="1" />
+					<h:panelGrid columns="1">
+						<p:outputLabel value="#{produtosMBean.getLabel('Preco')}" />
+						<p:inputText value="#{produtosMBean.produto.preco}" size="6"
+							style="text-align: right;"/>
+						<br />
+						<p:outputLabel value="#{produtosMBean.getLabel('Estoque')}"/>
+						<p:inputText value="#{produtosMBean.produto.estoque}" size="6"
+							style="text-align: right;" placeholder="00" />
+						<br />
+						<p:outputLabel value="#{produtosMBean.getLabel('Ativo')}" />
+						<p:inputSwitch widgetVar="ativoWV"
+							value="#{produtosMBean.produto.ativo}" onLabel="On"
+							offLabel="Off" />
+						<br />
+
+					</h:panelGrid>
+				</h:panelGrid>
+
+				<p:panel style="text-align: center;">
+
+					<p:commandButton value="#{produtosMBean.getLabel('Salvar')}"
+						styleClass="button_principal" icon="fa  fa-fw  fa-floppy-o"
+						action="#{produtosMBean.onSaveProduto()}"
+						update="formCadastroDeProdutos:linesTable,
+								messages" />
+
+					<p:commandButton value="#{produtosMBean.getLabel('ReiniciarCampos')}"
+						action="#{produtosMBean.onNovoProduto()}"
+						icon="fa  fa-fw  fa-recycle" update="manutencaoProduto" />
+
+					<p:commandButton value="#{produtosMBean.getLabel('Fechar')}" styleClass="button_cancel"
+						icon="fa  fa-fw  fa-trash"
+						oncomplete="PF('dialogManutencaoProdutoWV').hide();" />
+				</p:panel>
+			</p:panel>
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>

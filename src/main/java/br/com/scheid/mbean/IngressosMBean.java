@@ -12,11 +12,11 @@ import javax.faces.context.FacesContext;
 import br.com.scheid.dao.GenericDAO;
 import br.com.scheid.filters.IngressoFilter;
 import br.com.scheid.model.Ingresso;
-import br.com.scheid.viewmodel.IU02_01ViewModel;
+import br.com.scheid.viewmodel.IngressosViewModel;
 
 @ManagedBean
 @ViewScoped
-public class IU02_01MBean implements Serializable {
+public class IngressosMBean implements Serializable {
 	
 	/**
 	 * 
@@ -31,7 +31,7 @@ public class IU02_01MBean implements Serializable {
 	public List<Ingresso> ingressosCadastrados;
 	public Ingresso ingressoPesquisar;
 	public GenericDAO dao;
-	public IU02_01ViewModel viewModel;
+	public IngressosViewModel viewModel;
 	public IngressoFilter filter;
 	
 	
@@ -45,7 +45,7 @@ public class IU02_01MBean implements Serializable {
 		ingressosSelecionados = new ArrayList<Ingresso>();
 		ingresso = new Ingresso();
 		this.filter = new IngressoFilter();
-		this.viewModel = new IU02_01ViewModel();
+		this.viewModel = new IngressosViewModel();
 		
 		this.onBuscar();
 		return "config?faces-redirect=true";
@@ -98,7 +98,7 @@ public class IU02_01MBean implements Serializable {
 		return this.ingressosSelecionados.size() == 0;
 	}
 	
-	public IU02_01MBean(){
+	public IngressosMBean(){
 		this.init();
 	}
 	
@@ -144,10 +144,10 @@ public class IU02_01MBean implements Serializable {
 	public void setDao(GenericDAO dao) {
 		this.dao = dao;
 	}
-	public IU02_01ViewModel getViewModel() {
+	public IngressosViewModel getViewModel() {
 		return viewModel;
 	}
-	public void setViewModel(IU02_01ViewModel viewModel) {
+	public void setViewModel(IngressosViewModel viewModel) {
 		this.viewModel = viewModel;
 	}
 	public IngressoFilter getFilter() {

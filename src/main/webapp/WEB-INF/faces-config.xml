@@ -9,7 +9,7 @@
 			<supported-locale>pt</supported-locale>
 		</locale-config>
 		<resource-bundle>
-			<base-name>br.com.scheid.locale.bundle</base-name>
+			<base-name>br.com.scheid.locale.produtos</base-name>
 			<var>msg</var>
 		</resource-bundle>
 		<resource-bundle>

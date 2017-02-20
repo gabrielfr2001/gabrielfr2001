@@ -6,44 +6,43 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:body>
-	<p:dialog widgetVar="dialogNovoProdutoWV" id="dialogNovoProduto"
+	<p:dialog widgetVar="dialogEditarProdutoWV" id="dialogEditarProduto"
 		resizable="false" modal="true" width="550" dynamic="true" height="350"
-		header="Novo produto">
+		header="Editar Produto">
 
-		<h:form id="novoProduto">
+		<h:form id="editarProduto">
 			
 			<p:panel style="margin-bottom:20px;">
-
 
 				<h:panelGrid columns="3" cellpadding="5">
 					<h:panelGrid columns="1">
 
 						<p:outputLabel value="Nome: " />
 						<p:inputText title="Entre como nome do produto"
-							value="#{iU01_01MBean.produto.nome}" size="33" required="true"
+							value="#{produtosMBean.produtosSelecionados.get(0).nome}" size="33" required="true"
 							requiredMessage="Não é possivel cadastrar um produto sem nome!"
 							placeholder="Digite o nome do produto">
 						</p:inputText>
 						<br />
 						<p:outputLabel value="Descrição: " />
 						<p:inputTextarea rows="6" cols="35"
-							value="#{iU01_01MBean.produto.descricao}"
+							value="#{produtosMBean.produtosSelecionados.get(0).descricao}"
 							placeholder="Entre com a descrição do produto" />
 
 					</h:panelGrid>
 					<h:panelGrid columns="1" />
 					<h:panelGrid columns="1">
 						<p:outputLabel value="Preço: (R$) " />
-						<p:inputText value="#{iU01_01MBean.produto.preco}" size="6" 
+						<p:inputText value="#{produtosMBean.produtosSelecionados.get(0).preco}" size="6"
 							style="text-align: right;" required="true" requiredMessage="Não é possivel cadastrar um produto sem preço!"/>
 						<br />
 						<p:outputLabel value="Estoque: " />
-						<p:inputText value="#{iU01_01MBean.produto.estoque}" size="6"
+						<p:inputText value="#{produtosMBean.produtosSelecionados.get(0).estoque}" size="6"
 							style="text-align: right;" placeholder="00" />
 						<br />
 						<p:outputLabel value="Ativo: " />
 						<p:inputSwitch widgetVar="ativoWV"
-							value="#{iU01_01MBean.produto.ativo}" onLabel="On" offLabel="Off" />
+							value="#{produtosMBean.produtosSelecionados.get(0).ativo}" onLabel="On" offLabel="Off" />
 						<br />
 
 					</h:panelGrid>
@@ -52,17 +51,20 @@
 
 				<p:panel style="text-align: center;">
 
-					<p:commandButton value="#{msg.Salvar}" styleClass="button_principal"
+					<p:commandButton value="Salvar" styleClass="button_principal"
 						icon="fa  fa-fw  fa-floppy-o"
-						action="#{iU01_01MBean.onSaveNovoProduto()}"
-						update="formCadastroDeProdutos:linesTable" 
-						oncomplete="PF('dialogNovoProdutoWV').hide();"/>
+						action="#{produtosMBean.onEditProduto()}"
+						update="formCadastroDeProdutos:linesTable,
+								formCadastroDeProdutos:btnAtivar,
+								formCadastroDeProdutos:btnEditar,
+								formCadastroDeProdutos:btnExcluir" 
+						oncomplete="PF('dialogEditarProdutoWV').hide();"/>
 
-					<p:commandButton value="#{msg.ReiniciarCampos}"
-						action="#{iU01_01MBean.onNovoProduto()}"
+					<p:commandButton value="Reiniciar Campos"
+						action="#{produtosMBean.onNovoProduto()}"
 						icon="fa  fa-fw  fa-recycle" update="novoProduto" />
 
-					<p:commandButton value="#{msg.Cancelar}" styleClass="button_cancel"
+					<p:commandButton value="Cancelar" styleClass="button_cancel"
 						icon="fa  fa-fw  fa-trash"
 						oncomplete="PF('dialogNovoProdutoWV').hide();" />
 				</p:panel>

@@ -1,0 +1,195 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/teste_template.xhtml">
+
+	<ui:define name="content">
+
+		<script type="text/javascript">
+			window.onload = function(){
+				$('.js-sidebar, .js-content').toggleClass('is-toggled');
+				event.preventDefault();
+
+				$(".is-selected").removeClass("is-selected");
+				$("#produtos").addClass("is-selected");
+			}
+		</script>
+
+
+		<h1 class="aw-page-title">
+			<i class="fa fa-shopping-basket" aria-hidden="true"></i>
+			<h:outputText value="#{produtosMBean.getLabel('titulom')}" />
+		</h1>
+		
+		<h:form id="formCadastroDeProdutos">
+			<p:panel toggleable="false">
+				<f:facet name="header">
+					<h:outputText value=" #{produtosMBean.getLabel('titulo')}" />
+				</f:facet>
+
+				<p:panel widgetVar="panelFiltrosWV" toggleable="true"
+					style="text-align: left;" id="filtrosPesquisa" collapsed="true">
+			       <f:facet name="header">
+						<i class="fa fa-filter" aria-hidden="true"></i>
+						<h:outputText
+							value="#{produtosMBean.getLabel('filtroDePesquisa')}" />
+					</f:facet>
+					<h:panelGrid columns="1" style="margin-bottom:20px;">
+						<h:panelGrid columns="1">
+							<p:outputLabel value="#{produtosMBean.getLabel('Nome')}" />
+							<p:keyboard id="default" value="#{produtosMBean.filter.nome}"
+								title="#{produtosMBean.getLabel('produtoNomeTitle')}" />
+
+							<br />
+
+							<p:outputLabel
+								value="#{produtosMBean.getLabel('Descricao')}" />
+							<p:keyboard id="default2"
+								value="#{produtosMBean.filter.descricao}"
+								title="#{produtosMBean.getLabel('produtoDescricaoTitle')}" />
+						</h:panelGrid>
+					</h:panelGrid>
+
+					<h:panelGrid style="margin-bottom:20px;">
+						<p:toolbar>
+							<p:toolbarGroup>
+								<p:commandButton styleClass="button_principal"
+									value="#{produtosMBean.getLabel('Pesquisar')}"
+									action="#{produtosMBean.onBuscar()}" update="linesTable"
+									oncomplete="PF('panelFiltrosWV').toggle()"
+									icon="fa  fa-fw  fa-search" />
+								<p:commandButton id="newSearch"
+									action="#{produtosMBean.onNovaPesquisa()}"
+									update="formCadastroDeProdutos:filtrosPesquisa"
+									value="#{produtosMBean.getLabel('NovaPesquisa')}"
+									icon="fa  fa-fw  fa-search-plus"
+									 />
+							</p:toolbarGroup>
+						</p:toolbar>
+					</h:panelGrid>
+				</p:panel>
+
+				<p:dataTable id="linesTable"
+					value="#{produtosMBean.produtosCadastrados}" var="line"
+					selection="#{produtosMBean.produtosSelecionados}"
+					rowKey="#{line.id}"
+					emptyMessage="#{produtosMBean.getLabel('nenhumproduto')}"
+					paginator="true" rowSelectMode="ckeckbox" sortBy="#{line.nome}"
+					rows="10" reflow="true" style="margin-top: 10px">
+					<p:ajax event="rowSelect"
+						update="formCadastroDeProdutos:btnEditar,
+								    formCadastroDeProdutos:btnExcluir,
+									formCadastroDeProdutos:btnAtivar" />
+
+					<p:ajax event="rowUnselect"
+						update="formCadastroDeProdutos:btnEditar,
+								formCadastroDeProdutos:btnExcluir,
+								formCadastroDeProdutos:btnAtivar" />
+
+					<p:ajax event="rowSelectCheckbox"
+						update="formCadastroDeProdutos:btnEditar,
+								formCadastroDeProdutos:btnExcluir,
+								formCadastroDeProdutos:btnAtivar" />
+
+					<p:ajax event="rowUnselectCheckbox"
+						update="formCadastroDeProdutos:btnEditar,
+								formCadastroDeProdutos:btnExcluir,
+								formCadastroDeProdutos:btnAtivar" />
+
+					<p:ajax event="toggleSelect"
+						update="formCadastroDeProdutos:btnEditar,
+								formCadastroDeProdutos:btnExcluir,
+								formCadastroDeProdutos:btnAtivar" />
+
+					<p:column selectionMode="multiple"
+						style="width:16px;text-align:center" />
+					<p:column headerText="#{produtosMBean.getLabel('produto')}"
+						style="width:200px;" id="nome" sortBy="#{line.nome}">
+						<h:outputText value="#{line.nome}" />
+					</p:column>
+
+					<p:column headerText="#{produtosMBean.getLabel('produto')}">
+						<h:outputText value="#{line.descricao}" />
+					</p:column>
+
+					<p:column headerText="#{produtosMBean.getLabel('Preco')}"
+						style="width:60px;">
+						<h:outputText value="#{line.preco}">
+							<f:convertNumber type="currency" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="#{produtosMBean.getLabel('Estoque')}"
+						style="width:60px;text-align: center;">
+						<h:outputText value="#{line.estoque}" />
+					</p:column>
+					<p:column headerText="#{produtosMBean.getLabel('Ativo')}"
+						style="width:60px;text-align: center;">
+						<p:panelGrid rendered="#{line.ativo}">
+							<i class="fa fa-check" aria-hidden="true"
+								style="text-align: center; color: green;"></i>
+						</p:panelGrid>
+						<p:panelGrid rendered="#{!line.ativo}">
+							<i class="fa fa-times" aria-hidden="true"
+								style="text-align: center; color: red;"></i>
+						</p:panelGrid>
+					</p:column>
+				</p:dataTable>
+				
+				<p:panel style="text-align: center;">
+					<p:commandButton value="#{produtosMBean.getLabel('Incluir')}"
+							icon="fa  fa-fw  fa-plus-circle"
+							action="#{produtosMBean.onNovoProduto()}" 
+							update="dialogManutencaoProduto, manutencaoProduto"
+							oncomplete="PF('dialogManutencaoProdutoWV').show()"
+							styleClass="button_principal">
+						<p:resetInput target="" />
+					</p:commandButton>
+					
+					<p:commandButton value="#{produtosMBean.getLabel('Editar')}"
+							icon="fa  fa-fw  fa-wrench" 
+							id="btnEditar"
+							action="#{produtosMBean.onEditProduto()}"
+							disabled="#{produtosMBean.buttonEditIsDisable()}"
+							oncomplete="PF('dialogManutencaoProdutoWV').show()"
+							 update="dialogManutencaoProduto, manutencaoProduto"
+							 process="@this"
+							styleClass="button_principal">
+						<p:resetInput target="" />
+					</p:commandButton>
+					
+					<p:commandButton value="#{produtosMBean.getLabel('ativar')}"
+							icon="fa  fa-fw  fa-thumbs-o-up" id="btnAtivar"
+							action="#{produtosMBean.onAtivarProduto()}"
+							disabled="#{produtosMBean.buttonExcluirIsDisable()}" oncomplete=""
+							process="@this"
+							update="linesTable,formCadastroDeProdutos:btnEditar,
+							 						 formCadastroDeProdutos:btnExcluir,
+							 						 formCadastroDeProdutos:btnAtivar "
+							styleClass="button_ativar">
+						<p:resetInput target="" />
+					</p:commandButton>
+					
+					<p:commandButton 
+								value="#{produtosMBean.getLabel('Excluir')}"
+								icon="fa  fa-fw  fa-times-circle" id="btnExcluir"
+								action="#{produtosMBean.onExcluirProduto()}"
+								disabled="#{produtosMBean.buttonExcluirIsDisable()}"
+								process="@this"
+								update="linesTable,formCadastroDeProdutos:btnEditar
+						 							 formCadastroDeProdutos:btnExcluir,
+						 						 	formCadastroDeProdutos:btnAtivar,
+						 						 	messages"
+								styleClass="button_cancel">
+						<p:resetInput target="" />
+					</p:commandButton>
+
+				</p:panel>
+			</p:panel>
+		</h:form>
+		
+		<ui:include src="/pages/produtos/manutencaoProduto.xhtml" />
+	</ui:define>
+</ui:composition>
