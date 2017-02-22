@@ -17,23 +17,23 @@
 			}
 		</script>
 		
-		<p:growl id="msg" autoUpdate="true" />
+		<p:growl id="msg" autoUpdate="true" /> 
 
 		<h1 class="aw-page-title">
 			<i class="fa fa-ticket" aria-hidden="true"></i>
-			<h:outputText value=" #{tagsIngressos.titulo}" />
+			<h:outputText value=" #{ingressosMBean.getLabel('titulo')}" />
 		</h1>
 		<h:form id="formCadastroDeIngressos">
 			<p:panel toggleable="false" >
 				<f:facet name="header">
-					<h:outputText value=" #{tagsIngressos.subtitulo}" />
+					<h:outputText value=" #{ingressosMBean.getLabel('subtitulo')}" />
 				</f:facet>
 
 
 				<p:dataTable id="linesTable"
 					value="#{ingressosMBean.ingressosCadastrados}" var="line"
 					selection="#{ingressosMBean.ingressosSelecionados}"
-					rowKey="#{line.id}" emptyMessage="#{tagsIngressos.nenhumingresso}"
+					rowKey="#{line.id}" emptyMessage="#{ingressosMBean.getLabel('nenhumingresso')}"
 					paginator="true" rowSelectMode="ckeckbox" 
 					sortBy="#{line.nome}"
 					reflow="true"
@@ -61,23 +61,23 @@
 
 					<p:column selectionMode="multiple"
 						style="width:16px;text-align:center" />
-					<p:column headerText="#{tagsIngressos.ingresso}"
+					<p:column headerText="#{ingressosMBean.getLabel('ingresso')}"
 						style="width:200px;" id="nome" sortBy="#{line.nome}">
 						<h:outputText value="#{line.nome}" />
 					</p:column>
 
 
-					<p:column headerText="#{msg.Preco}" style="width:60px;">
+					<p:column headerText="#{ingressosMBean.getLabel('preco')}" style="width:60px;">
 						<h:outputText value="#{line.preco}">
 							<f:convertNumber type="currency" />
 						</h:outputText>
 					</p:column>
 
-					<p:column headerText="#{msg.Estoque}"
+					<p:column headerText="#{ingressosMBean.getLabel('estoque')}"
 						style="width:60px;text-align: center;">
 						<h:outputText value="#{line.estoque}" />
 					</p:column>
-					<p:column headerText="#{msg.Ativo}"
+					<p:column headerText="#{ingressosMBean.getLabel('Ativo')}"
 						style="width:60px;text-align: center;">
 						<p:panelGrid rendered="#{line.ativo}">
 							<i class="fa fa-check" aria-hidden="true"
@@ -93,20 +93,27 @@
 
 				</p:dataTable>
 				<p:panel style="text-align: center;">
-					<p:commandButton value="#{msg.Incluir}"
+					<p:commandButton value="#{ingressosMBean.getLabel('Incluir')}"
 						icon="fa  fa-fw  fa-plus-circle"
-						action="#{ingressosMBean.onNovoIngresso()}" update="novoIngresso"
-						oncomplete="PF('dialogNovoIngressoWV').show()"
+						action="#{ingressosMBean.onNovoIngresso()}" update="dialogManutencaoIngresso, manutencaoIngresso"
+						oncomplete="PF('dialogManutencaoIngressoWV').show()"
 						styleClass="button_principal">
 						<p:resetInput target="" />
 					</p:commandButton>
-					<p:commandButton value="#{msg.Editar}" icon="fa  fa-fw  fa-wrench"
-						id="btnEditar" disabled="#{ingressosMBean.buttonEditIsDisable()}"
-						onclick="PF('dialogEditarIngressoWV').show()" process="@this"
-						update="" styleClass="button_principal">
+					
+					<p:commandButton value="#{produtosMBean.getLabel('Editar')}"
+							icon="fa  fa-fw  fa-wrench" 
+							id="btnEditar"
+							action="#{ingressosMBean.onEditIngresso()}"
+							disabled="#{ingressosMBean.buttonEditIsDisable()}"
+							oncomplete="PF('dialogManutencaoIngressoWV').show()"
+							 update="dialogManutencaoIngresso, manutencaoIngresso"
+							 process="@this"
+							styleClass="button_principal">
 						<p:resetInput target="" />
 					</p:commandButton>
-					<p:commandButton value="#{msg.ativar}"
+					
+					<p:commandButton value="#{ingressosMBean.getLabel('Ativar')}"
 						icon="fa  fa-fw  fa-thumbs-o-up" id="btnAtivar"
 						action="#{ingressosMBean.onAtivarIngresso()}"
 						disabled="#{ingressosMBean.buttonExcluirIsDisable()}" oncomplete=""
@@ -117,7 +124,7 @@
 						styleClass="button_ativar">
 						<p:resetInput target="" />
 					</p:commandButton>
-					<p:commandButton value="#{msg.Excluir}"
+					<p:commandButton value="#{ingressosMBean.getLabel('Excluir')}"
 						icon="fa  fa-fw  fa-times-circle" id="btnExcluir"
 						action="#{ingressosMBean.onExcluirIngresso()}"
 						disabled="#{ingressosMBean.buttonExcluirIsDisable()}"
@@ -132,7 +139,6 @@
 
 
 		</h:form>
-		<ui:include src="/pages/ingressos/novoIngresso.xhtml" />
-		<ui:include src="/pages/ingressos/editarIngresso.xhtml" />
+		<ui:include src="/pages/ingressos/manutencaoIngresso.xhtml" />
 	</ui:define>
 </ui:composition>

@@ -1,31 +1,28 @@
 package br.com.scheid.mbean;
 
 import java.io.Serializable;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
+
+import org.primefaces.context.RequestContext;
 
 import br.com.scheid.dao.GenericDAO;
 import br.com.scheid.filters.IngressoFilter;
 import br.com.scheid.model.Ingresso;
+import br.com.scheid.model.Produto;
+import br.com.scheid.utils.StringUtil;
 import br.com.scheid.viewmodel.IngressosViewModel;
 
 @ManagedBean
 @ViewScoped
-public class IngressosMBean implements Serializable {
-	
-	/**
-	 * 
-	 */
+public class IngressosMBean extends AbstractCommonMBean implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	public String linguaEscolhida = "en";
-	public Locale locale;
-	
+		
 	public Ingresso ingresso;
 	public List<Ingresso> ingressosSelecionados;
 	public List<Ingresso> ingressosCadastrados;
@@ -35,20 +32,32 @@ public class IngressosMBean implements Serializable {
 	public IngressoFilter filter;
 	
 	
-	public String init(){
-		locale = new Locale(linguaEscolhida);
-		FacesContext instance = FacesContext.getCurrentInstance();
-		instance.getViewRoot().setLocale(locale);
-		
-		dao = new GenericDAO();
+	public void init(){
 		ingressosCadastrados = new ArrayList<Ingresso>();
 		ingressosSelecionados = new ArrayList<Ingresso>();
 		ingresso = new Ingresso();
 		this.filter = new IngressoFilter();
 		this.viewModel = new IngressosViewModel();
-		
 		this.onBuscar();
-		return "config?faces-redirect=true";
+	}
+	
+	public Boolean isIngressoValido(){
+		Boolean valido = Boolean.TRUE;
+		if(StringUtil.isNull(this.ingresso.getNome())){
+			valido = Boolean.FALSE;
+			this.addMessage(this.getLabel("msg_nome_obrigatorio"), FacesMessage.SEVERITY_ERROR);
+		}
+		
+		if(this.ingresso.getPreco() == 0){
+			valido = Boolean.FALSE;
+			this.addMessage(this.getLabel("msg_preco_obrigatorio"), FacesMessage.SEVERITY_ERROR);
+		}
+		
+		if(this.ingresso.getEstoque() == null && this.usaEstoque()){
+			valido = Boolean.FALSE;
+			this.addMessage(this.getLabel("msg_estoque_obrigatorio"), FacesMessage.SEVERITY_ERROR);
+		}
+		return valido;
 	}
 	
 	public void onAtivarIngresso(){
@@ -58,17 +67,20 @@ public class IngressosMBean implements Serializable {
 			} else{
 				ingressosSelecionados.get(i).setAtivo(false);
 			}
-			dao.salvar(ingressosSelecionados.get(i));
+			this.viewModel.salvarIngresso(ingressosSelecionados.get(i));
 		}
 		ingressosSelecionados.clear();
 		this.onBuscar();
 	}
 	
 	public void onExcluirIngresso(){
+		Integer qtdExcluida = 0;
 		for(int i=0; i< this.ingressosSelecionados.size();i++){
+			qtdExcluida++;
 			this.viewModel.removerIngresso(this.ingressosSelecionados.get(i).getId());
 		}
-		this.onBuscar();
+		this.addMessage(MessageFormat.format(this.getLabel("msg_excluir"), qtdExcluida.toString()), FacesMessage.SEVERITY_ERROR);
+		this.init();;
 	}
 	
 	public void onBuscar(){
@@ -76,15 +88,26 @@ public class IngressosMBean implements Serializable {
 	}
 	
 	public void onEditIngresso(){
-		dao.salvar(ingressosSelecionados.get(0));
-		ingresso = new Ingresso();
-		this.onBuscar();
+		this.ingresso = this.ingressosSelecionados.get(0);
 	}
 	
 	public void onSaveNovoIngresso(){
-		dao.salvar(ingresso);
-		ingresso = new Ingresso();
-		this.onBuscar();
+		if(this.isIngressoValido()){
+			if(this.ingresso.getId() == null){
+				this.addMessage(this.getLabel("msg_salvar"), FacesMessage.SEVERITY_ERROR);
+			}else {
+				this.addMessage(MessageFormat.format(this.getLabel("msg_editar"), this.getIngresso().getNome()), FacesMessage.SEVERITY_ERROR);
+			}
+			
+			this.viewModel.salvarIngresso(ingresso);
+			ingresso = new Ingresso();
+			this.onBuscar();
+			this.fecharDialog();
+		}
+	}
+	
+	private void fecharDialog(){
+		RequestContext.getCurrentInstance().execute("PF('dialogManutencaoIngressoWV').hide();");
 	}
 	
 	public void onNovoIngresso(){
@@ -100,20 +123,9 @@ public class IngressosMBean implements Serializable {
 	
 	public IngressosMBean(){
 		this.init();
+		this.viewModel = new IngressosViewModel();
 	}
 	
-	public String getLinguaEscolhida() {
-		return linguaEscolhida;
-	}
-	public void setLinguaEscolhida(String linguaEscolhida) {
-		this.linguaEscolhida = linguaEscolhida;
-	}
-	public Locale getLocale() {
-		return locale;
-	}
-	public void setLocale(Locale locale) {
-		this.locale = locale;
-	}
 	public Ingresso getIngresso() {
 		return ingresso;
 	}
@@ -155,6 +167,11 @@ public class IngressosMBean implements Serializable {
 	}
 	public void setFilter(IngressoFilter filter) {
 		this.filter = filter;
+	}
+
+	@Override
+	public String getBundleDir() {
+		return "br/com/scheid/locale/ingressos";
 	}
 	
 	

@@ -6,13 +6,15 @@
 	<provider>org.hibernate.ejb.HibernatePersistence</provider>
 	<class>br.com.scheid.model.Produto</class>
 	<class>br.com.scheid.model.Ingresso</class>
+	<class>br.com.scheid.model.Venda</class>
+	<class>br.com.scheid.model.VendaIngresso</class>
 	
 		<properties>
 			<property name="hibernate.show_sql" value="true" />
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/openbar" />
 			<property name="javax.persistence.jdbc.user" value="postgres" />
-			<property name="javax.persistence.jdbc.password" value="java" />
+			<property name="javax.persistence.jdbc.password" value="root" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 		</properties>

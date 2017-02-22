@@ -30,5 +30,8 @@
             30
         </session-timeout>
     </session-config>
-
+	<mime-mapping>
+    <extension>xhtml</extension>
+    <mime-type>application/xml</mime-type>
+</mime-mapping>
 </web-app>
