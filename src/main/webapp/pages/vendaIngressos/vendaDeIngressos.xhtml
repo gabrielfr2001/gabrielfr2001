@@ -90,7 +90,9 @@
 						</p:dataTable>
 						<p:panel style="text-align: center;" id="panelBtns">
 							<p:commandButton icon="fa fa-fw fa-money" value="Finalizar Compra" styleClass="button_principal"
-											 disabled="#{empty vendaIngressosMBean.ingressosVendidos}" />
+											 disabled="#{empty vendaIngressosMBean.ingressosVendidos}" 
+											 action="#{vendaIngressosMBean.onFinalizarCompras()}"
+											 update="dialogCheckout"/>
 							<p:commandButton icon="fa fa-fw fa-trash-o" value="Cancelar" styleClass="button_cancel"
 											 action="#{vendaIngressosMBean.onCancelar()}"
 											 update="formVendaDeIngressos:comanda, formVendaDeIngressos:panelBtns"
@@ -106,6 +108,6 @@
 					<!-- fim do container externo da direita -->
 			</div>
 		</h:form>
-
+	<ui:include src="/pages/vendaIngressos/checkout.xhtml" />
 	</ui:define>
 </ui:composition>

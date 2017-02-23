@@ -1,9 +1,23 @@
 package br.com.scheid.to;
 
-import br.com.scheid.model.Ingresso;
+import java.io.Serializable;
 
-public class IngressoVendido {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+import br.com.scheid.model.Ingresso;
+@Entity
+public class IngressoVendido implements Serializable{
 	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	@Id @GeneratedValue
+	private Long id;
 	private Integer quantidade;
 	private Ingresso ingresso;
 	

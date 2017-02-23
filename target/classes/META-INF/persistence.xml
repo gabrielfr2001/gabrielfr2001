@@ -8,6 +8,7 @@
 	<class>br.com.scheid.model.Ingresso</class>
 	<class>br.com.scheid.model.Venda</class>
 	<class>br.com.scheid.model.VendaIngresso</class>
+	<class>br.com.scheid.to.IngressoVendido</class>
 	
 		<properties>
 			<property name="hibernate.show_sql" value="true" />

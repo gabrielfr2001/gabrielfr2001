@@ -1,7 +1,7 @@
 package br.com.scheid.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,18 +14,18 @@ public class Venda extends AbstractModel<Long> implements Serializable {
 	
 	@Id @GeneratedValue
 	private Long id;
-	private Date data;
+	private LocalDate data;
 	
 	@Override
 	public Long getId() {
 		return id;
 	}
 
-	public Date getData() {
+	public LocalDate getData() {
 		return data;
 	}
 
-	public void setData(Date data) {
+	public void setData(LocalDate data) {
 		this.data = data;
 	}
 

@@ -1,6 +1,6 @@
 package br.com.scheid.mbean;
 
-import java.io.Serializable;   
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +10,7 @@ import javax.faces.bean.ViewScoped;
 import br.com.scheid.dao.GenericDAO;
 import br.com.scheid.filters.IngressoFilter;
 import br.com.scheid.model.Ingresso;
+import br.com.scheid.model.Venda;
 import br.com.scheid.to.IngressoVendido;
 import br.com.scheid.viewmodel.VendaIngressosViewModel;
 
@@ -34,6 +35,11 @@ public class VendaIngressosMBean implements Serializable {
 	public List<Ingresso> ingressosSelecionados;
 	public List<IngressoVendido> ingressosVendidos;
 	public float totalComanda;
+	public Venda venda;
+	
+	public void onFinalizarCompras(){
+		venda = new Venda();
+	}
 	
 	public void Init(){
 		

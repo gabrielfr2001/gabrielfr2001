@@ -14,7 +14,6 @@ import org.primefaces.context.RequestContext;
 import br.com.scheid.dao.GenericDAO;
 import br.com.scheid.filters.IngressoFilter;
 import br.com.scheid.model.Ingresso;
-import br.com.scheid.model.Produto;
 import br.com.scheid.utils.StringUtil;
 import br.com.scheid.viewmodel.IngressosViewModel;
 

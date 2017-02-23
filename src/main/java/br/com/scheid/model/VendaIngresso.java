@@ -14,6 +14,7 @@ public class VendaIngresso extends Venda{
 	
 	@ManyToMany
 	private List<Ingresso> ingressos;
+	private List<Integer> quantidades;
 
 	public List<Ingresso> getIngressos() {
 		return ingressos;
@@ -22,4 +23,14 @@ public class VendaIngresso extends Venda{
 	public void setIngressos(List<Ingresso> ingressos) {
 		this.ingressos = ingressos;
 	}
+
+	public List<Integer> getQuantidades() {
+		return quantidades;
+	}
+
+	public void setQuantidades(List<Integer> quantidades) {
+		this.quantidades = quantidades;
+	}
+	
+	
 }
