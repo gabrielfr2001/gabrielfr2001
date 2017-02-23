@@ -1,6 +1,9 @@
 package br.com.scheid.mbean;
 
-import java.io.Serializable;  
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Locale;
 
 import javax.faces.bean.ManagedBean;
@@ -44,4 +47,9 @@ public class ApplicationMBean implements Serializable {
 	public Locale getLocale() {
 		return locale;
 	}
+	
+	public String getHoraServidor() {
+		return LocalDate.now().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM));
+	}
+	
 }

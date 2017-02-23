@@ -92,6 +92,7 @@
 							<p:commandButton icon="fa fa-fw fa-money" value="Finalizar Compra" styleClass="button_principal"
 											 disabled="#{empty vendaIngressosMBean.ingressosVendidos}" 
 											 action="#{vendaIngressosMBean.onFinalizarCompras()}"
+											 oncomplete="PF('dialogCheckoutWV').show()"
 											 update="dialogCheckout"/>
 							<p:commandButton icon="fa fa-fw fa-trash-o" value="Cancelar" styleClass="button_cancel"
 											 action="#{vendaIngressosMBean.onCancelar()}"

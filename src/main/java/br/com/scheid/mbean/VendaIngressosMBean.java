@@ -1,6 +1,9 @@
 package br.com.scheid.mbean;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +19,7 @@ import br.com.scheid.viewmodel.VendaIngressosViewModel;
 
 @ManagedBean
 @ViewScoped
-public class VendaIngressosMBean implements Serializable {
+public class VendaIngressosMBean extends AbstractCommonMBean implements Serializable {
 	
 	/**
 	 * 
@@ -197,6 +200,16 @@ public class VendaIngressosMBean implements Serializable {
 	public void setIdIngressoRemover(Long idIngressoRemover) {
 		this.idIngressoRemover = idIngressoRemover;
 	}
+
+	@Override
+	public String getBundleDir() {
+		return "br/com/scheid/locale/venderIngressos";
+	}
 	
+	public String getHora(){
+		LocalDateTime d = LocalDateTime.now();
+		DateTimeFormatter f = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:SS");
+		return d.format(f);
+	}
 }
 
