@@ -4,15 +4,105 @@ body {
 	font-size: 13px;
 	font-family: BlinkMacSystemFont,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif !important;
 }
-
+.tituluzinho{
+	font-size: 17px !important;
+}
 .visaDebito{
 	background-image: url('/resources/openbar/images/visaelectron.png') !important;
 }
-
-.btnOpcao{
-	
+.tabelaConta1{
+	width: 300px;
+}
+.mais{
+    background-color: #eaeaea;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f6f6f6), to(#eaeaea));
+    background-image: -webkit-linear-gradient(top, #f6f6f6, #eaeaea);
+    background-image: -moz-linear-gradient(top, #f6f6f6, #eaeaea);
+    background-image: -ms-linear-gradient(top, #f6f6f6, #eaeaea);
+    background-image: -o-linear-gradient(top, #f6f6f6, #eaeaea);
+    background-image: linear-gradient(top, #f6f6f6, #eaeaea);
+    -moz-border-radius: 32px;
+    -webkit-border-radius: 32px;
+    border-radius: 32px;
+    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
+    box-shadow: 0 1px 10px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
+    top: 85px;
+    box-sizing: border-box;
+    display: inline-block;
+    position: relative;
+    height: 30px;
+    width: 30px;
+    
+}
+.mais:active{
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#eaeaea), to(#f6f6f6));
+	background-image: -webkit-linear-gradient(top, #eaeaea, #f6f6f6);
+	background-image: -moz-linear-gradient(top, #eaeaea, #f6f6f6); 
+	background-image: -ms-linear-gradient(top, #eaeaea, #f6f6f6); 
+	background-image: -o-linear-gradient(top, #eaeaea, #f6f6f6);
+	background-image: linear-gradient(top, #eaeaea, #f6f6f6);
 }
 
+.mais:hover{
+	background-color: #c6f0f8;
+}
+.mais:hover::before { opacity: 1; }
+.opcoes {
+    width: 118px;
+    height: 118px;
+    background-image: url(/Open-Bar-0.0.1-SNAPSHOT/resources/openbar/images/cash.png) !important;
+    background-size: contain;
+    cursor: pointer;
+    display: inline-block;
+}
+.opcoes1 {
+    width: 118px;
+    height: 118px;
+    background-image: url(/Open-Bar-0.0.1-SNAPSHOT/resources/openbar/images/check.png) !important;
+    background-size: contain;
+    cursor: pointer;
+    display: inline-block;
+}
+.opcoes2 {
+    width: 118px;
+    height: 118px;
+    background-image: url(/Open-Bar-0.0.1-SNAPSHOT/resources/openbar/images/electron.png) !important;
+    background-size: contain;
+    cursor: pointer;
+    display: inline-block;
+}
+.opcoes3 {
+    width: 118px;
+    height: 118px;
+    background-image: url(/Open-Bar-0.0.1-SNAPSHOT/resources/openbar/images/maestro.png) !important;
+    background-size: contain;
+    cursor: pointer;
+    display: inline-block;
+}
+.opcoes4 {
+    width: 118px;
+    height: 118px;
+    background-image: url(/Open-Bar-0.0.1-SNAPSHOT/resources/openbar/images/visa.png) !important;
+    background-size: contain;
+    cursor: pointer;
+    display: inline-block;
+}
+.opcoes5 {
+    width: 118px;
+    height: 118px;
+    background-image: url(/Open-Bar-0.0.1-SNAPSHOT/resources/openbar/images/mastercard.png) !important;
+    background-size: contain;
+    cursor: pointer;
+    display: inline-block;
+}
+.btnOpcao{
+	width: 117px;
+}
+.grid{
+	padding: 0px;
+	width: 265px !important;
+}
 .visaCredit{
 	background-image: url('/resources/openbar/images/visa.png') !important;
 }
@@ -818,4 +908,69 @@ body {
 	}
 	.last td { padding-bottom: @printer-padding-base; }
 }
+
+.a {
+	margin-right: 30px;
+	width: 64px;
+	height: 64px;
+	display: inline-block;
+	position: relative;
+	line-height: 64px;
+	background-color: #eaeaea;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#f6f6f6), to(#eaeaea));
+	background-image: -webkit-linear-gradient(top, #f6f6f6, #eaeaea);
+	background-image: -moz-linear-gradient(top, #f6f6f6, #eaeaea); 
+	background-image: -ms-linear-gradient(top, #f6f6f6, #eaeaea); 
+	background-image: -o-linear-gradient(top, #f6f6f6, #eaeaea);
+	background-image: linear-gradient(top, #f6f6f6, #eaeaea);
+	-moz-border-radius: 32px;
+	-webkit-border-radius: 32px;
+	border-radius: 32px;
+	-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
+}
+
+.a:active {
+	top: 1px;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#eaeaea), to(#f6f6f6));
+	background-image: -webkit-linear-gradient(top, #eaeaea, #f6f6f6);
+	background-image: -moz-linear-gradient(top, #eaeaea, #f6f6f6); 
+	background-image: -ms-linear-gradient(top, #eaeaea, #f6f6f6); 
+	background-image: -o-linear-gradient(top, #eaeaea, #f6f6f6);
+	background-image: linear-gradient(top, #eaeaea, #f6f6f6);
+}
+
+.a::before{
+	content: '';
+	position: absolute;
+	z-index: -1;
+	top: -8px;
+	right: -8px;
+	bottom: -8px;
+	left: -8px;
+	background-color: #eaeaea;
+	-moz-border-radius: 140px;
+	-webkit-border-radius: 140px;
+	border-radius: 140px;
+	opacity: 0.5;		
+}
+
+.a:active::before {
+	top: -9px;
+}
+ 
+.a:hover::before {
+	opacity: 1;
+}
+
+.a.twitter:hover::before {
+	background-color: #c6f0f8;
+}
+ 
+.twitter i{
+	vertical-align: -7px;
+}
+ 
+
     

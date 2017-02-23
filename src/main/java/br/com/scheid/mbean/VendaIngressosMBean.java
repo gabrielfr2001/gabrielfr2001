@@ -1,7 +1,6 @@
 package br.com.scheid.mbean;
 
 import java.io.Serializable;
-import java.text.DateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -13,6 +12,7 @@ import javax.faces.bean.ViewScoped;
 import br.com.scheid.dao.GenericDAO;
 import br.com.scheid.filters.IngressoFilter;
 import br.com.scheid.model.Ingresso;
+import br.com.scheid.model.Pagamento;
 import br.com.scheid.model.Venda;
 import br.com.scheid.to.IngressoVendido;
 import br.com.scheid.viewmodel.VendaIngressosViewModel;
@@ -39,6 +39,8 @@ public class VendaIngressosMBean extends AbstractCommonMBean implements Serializ
 	public List<IngressoVendido> ingressosVendidos;
 	public float totalComanda;
 	public Venda venda;
+	public Pagamento pagamento;
+	public List<Pagamento> pagamentos;
 	
 	public void onFinalizarCompras(){
 		venda = new Venda();
@@ -47,8 +49,10 @@ public class VendaIngressosMBean extends AbstractCommonMBean implements Serializ
 	public void Init(){
 		
  		dao = new GenericDAO();
+ 		this.pagamento = new Pagamento();
 		this.filter = new IngressoFilter();
 		this.viewModel = new VendaIngressosViewModel();
+		this.pagamentos = new ArrayList<Pagamento>();
 		this.totalComanda = 0;
 		this.ingressosVendidos = new ArrayList<IngressoVendido>();
 		this.ingressosSelecionados = new ArrayList<Ingresso>();
@@ -211,5 +215,24 @@ public class VendaIngressosMBean extends AbstractCommonMBean implements Serializ
 		DateTimeFormatter f = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:SS");
 		return d.format(f);
 	}
+
+
+	public Pagamento getPagamento() {
+		return pagamento;
+	}
+
+	public void setPagamento(Pagamento pagamento) {
+		this.pagamento = pagamento;
+	}
+
+	public List<Pagamento> getPagamentos() {
+		return pagamentos;
+	}
+
+	public void setPagamentos(List<Pagamento> pagamentos) {
+		this.pagamentos = pagamentos;
+	}
+	
+	
 }
 
