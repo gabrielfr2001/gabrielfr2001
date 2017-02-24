@@ -13,6 +13,12 @@ body {
 .tabelaConta1{
 	width: 300px;
 }
+
+.teclado{
+	    font-size: 70px;
+	    width: 326px !important;
+}
+
 .mais{
     background-color: #eaeaea;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#f6f6f6), to(#eaeaea));
@@ -89,6 +95,19 @@ body {
 	
 	-webkit-filter: grayscale(100%);
 }
+
+.keypad-key {
+	    width: 70px !important;
+	    box-shadow: 0 0 6px -1px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+}
+
+.keypad-back, .keypad-clear, .keypad-close{
+	width: 100px !important;
+    font-size: 36px !important;
+    height: 82px;
+    font-weight: normal !important;
+}
+
 .opcoes1 {
     width: 118px;
     height: 118px;

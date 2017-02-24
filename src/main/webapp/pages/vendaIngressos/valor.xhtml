@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+	<h:body>
+	
+		<p:dialog id="addValor" widgetVar="addValorWV" width="300" height="65" header="Entre com o valor:" modal="true"  dynamic="true">
+		<h:form id="valor">
+			<p:panel style="width: 270px;" >
+				<p:inputText value="#{vendaIngressosMBean.valor}" style="width: 160px; text-align: right;"/>				
+				<p:spacer width="4"/>
+				<p:commandButton action="#{vendaIngressosMBean.onAdicionarValor()}" 
+								 styleClass="button_principal"
+								 icon="fa  fa-fw fa-check-circle" style="width: 60px;"
+								 update="formCheckout"
+								  oncomplete="PF('addValorWV').hide()"/>
+			
+			</p:panel>
+		</h:form>
+		</p:dialog>
+		
+	</h:body>	
+</html>

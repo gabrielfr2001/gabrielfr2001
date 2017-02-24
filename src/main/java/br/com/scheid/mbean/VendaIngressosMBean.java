@@ -1,20 +1,20 @@
 package br.com.scheid.mbean;
 
-import java.io.Serializable;
+import java.io.Serializable; 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import br.com.scheid.dao.GenericDAO;
 import br.com.scheid.enums.EnumTipoPagamento;
 import br.com.scheid.filters.IngressoFilter;
 import br.com.scheid.model.Ingresso;
 import br.com.scheid.model.Pagamento;
-import br.com.scheid.model.Venda;
+import br.com.scheid.model.VendaIngresso;
 import br.com.scheid.to.IngressoVendido;
 import br.com.scheid.viewmodel.VendaIngressosViewModel;
 
@@ -29,8 +29,6 @@ public class VendaIngressosMBean extends AbstractCommonMBean implements Serializ
 	
 	public List<Ingresso> todosIngressos;
 	public List<Ingresso> todosIngressosAtivados;
-	public List<List<Ingresso>> ingressos5em5;
-	public GenericDAO dao;
 	public IngressoFilter filter;
 	public VendaIngressosViewModel viewModel;
 	public Ingresso ingressoSelecionado;
@@ -39,18 +37,67 @@ public class VendaIngressosMBean extends AbstractCommonMBean implements Serializ
 	public List<Ingresso> ingressosSelecionados;
 	public List<IngressoVendido> ingressosVendidos;
 	public float totalComanda;
-	public Venda venda;
+	public VendaIngresso venda;
 	public Pagamento pagamento;
 	public String tipoPagamento;
 	public List<Pagamento> pagamentos;
+	public float totalPendente;
+	public List<Float> pags;
+	public String valor;
+	public float subTotal;
 	
-	public void onFinalizarCompras(){
-		venda = new Venda();
+	public void salvarVenda(){
+		for(Pagamento p : this.pagamentos){
+			this.viewModel.salvar(p);
+		}
+		
+		this.venda.setData(new Date());
+		this.venda.setPagamentos(pagamentos);
+		for(IngressoVendido ingressoVendido : this.ingressosVendidos){
+			for(int i = 0; i < ingressoVendido.getQuantidade(); i++){
+				this.venda.getIngressos().add(ingressoVendido.getIngresso());
+			}
+		}
+		this.viewModel.salvar(this.venda);
 	}
 	
+	public float calcularTotal(){
+		float v = 0;
+		v = this.subTotal + (this.subTotal * 0.1f);
+		return v;
+	}
+	
+	public float calcularTotalPago(){
+		float total = 0;
+		for(int i=0; i<pagamentos.size();i++){
+			total += pagamentos.get(i).getValor();
+		}
+		return total; 
+	}
+	public void calcularSubTotal(){
+		this.subTotal = 0;
+		for(int i=0; i<ingressosVendidos.size();i++){
+			subTotal += ingressosVendidos.get(i).getQuantidade() * ingressosVendidos.get(i).getIngresso().getPreco();
+		}
+	}
+	
+	public void onFinalizarCompras(){
+		venda = new VendaIngresso();
+		this.calcularSubTotal();
+		totalPendente = this.subTotal + (this.subTotal * 0.1f);
+	}
+	
+	public Boolean btnIsDisibled(){
+		return totalPendente != 0;
+	}
+	
+	public void onAdicionarValor(){
+		this.pagamento.setPagamento(Float.parseFloat(valor), EnumTipoPagamento.values()[Integer.parseInt(this.tipoPagamento)]);
+		this.pagamentos.add(pagamento);
+		this.totalPendente -= Float.parseFloat(valor);
+	}
 	public void Init(){
 		
- 		dao = new GenericDAO();
  		this.pagamento = new Pagamento();
 		this.filter = new IngressoFilter();
 		this.viewModel = new VendaIngressosViewModel();
@@ -64,22 +111,6 @@ public class VendaIngressosMBean extends AbstractCommonMBean implements Serializ
 		for(int i=0;i<todosIngressos.size();i++){
 			if(todosIngressos.get(i).getAtivo())
 				todosIngressosAtivados.add(todosIngressos.get(i));
-		}
-		this.ingressos5em5 = new ArrayList<List<Ingresso>>();
-		
-		int i = 0;
-		this.linhas = this.todosIngressos.size() / 5;
-		if( this.todosIngressos.size() % 5 != 0 ){
-			while(i<this.linhas){
-				this.ingressos5em5.add(i, todosIngressos.subList(i*5,((i+1)*5)));
-				i++;
-			}
-			this.ingressos5em5.add(i, todosIngressos.subList(i*5, todosIngressos.size()));
-		}else{
-			while(i<this.linhas){
-				this.ingressos5em5.add(i, todosIngressos.subList(i*5,((i+1)*5)));
-				i++;
-			}
 		}
 		
 		this.ingressoSelecionado = new Ingresso();
@@ -154,14 +185,6 @@ public class VendaIngressosMBean extends AbstractCommonMBean implements Serializ
 
 	public void setLinhas(int linhas) {
 		this.linhas = linhas;
-	}
-
-	public List<List<Ingresso>> getIngressos5em5() {
-		return ingressos5em5;
-	}
-
-	public void setIngressos5em5(List<List<Ingresso>> ingressos5em5) {
-		this.ingressos5em5 = ingressos5em5;
 	}
 
 	public void setIngressoSelecionado(Ingresso ingressoSelecionado) {
@@ -249,5 +272,39 @@ public class VendaIngressosMBean extends AbstractCommonMBean implements Serializ
 	public void setTipoPagamento(String tipoPagamento) {
 		this.tipoPagamento = tipoPagamento;
 	}
+
+	public float getTotalPendente() {
+		return totalPendente;
+	}
+
+	public void setTotalPendente(float totalPendente) {
+		this.totalPendente = totalPendente;
+	}
+
+	public List<Float> getPags() {
+		return pags;
+	}
+
+	public void setPags(List<Float> pags) {
+		this.pags = pags;
+	}
+
+	public String getValor() {
+		return valor;
+	}
+
+	public void setValor(String valor) {
+		this.valor = valor;
+	}
+
+	public float getSubTotal() {
+		return subTotal;
+	}
+
+	public void setSubTotal(float subTotal) {
+		this.subTotal = subTotal;
+	}
+	
+	
 }
 

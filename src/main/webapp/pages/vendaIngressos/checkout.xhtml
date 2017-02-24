@@ -30,14 +30,15 @@
 	</script>
 
 	<p:dialog widgetVar="dialogCheckoutWV" id="dialogCheckout"
-		resizable="false" modal="true" dynamic="true" width="900"
+		resizable="false" modal="true" dynamic="true" width="920"
 		height="525">
 		<f:facet name="header">
 			<i class="fa fa-credit-card" aria-hidden="true"></i> Finalizar Compra</f:facet>
 		<h:form id="formCheckout">
 		
 		<p:inputText id="tipoPagamento" style="display: none;" value="#{vendaIngressosMBean.tipoPagamento}" />
-		<p:commandButton id="btnEnviarTipoPagamento" style="display: none;" action="#{vendaIngressosMBean.onAdicionarPagamento}"/>
+		<p:commandButton id="btnEnviarTipoPagamento" style="display: none;" action="#{vendaIngressosMBean.onAdicionarPagamento}"
+						 oncomplete="PF('addValorWV').show()"/>
 		
 		<p:layout style="height: 500px;">
 
@@ -79,39 +80,30 @@
 						</tr>
 						<tr class="ttu">
 							<td colspan="2">Sub-total</td>
-							<td align="right">R$43,60</td>
+							<td align="right">R$ #{vendaIngressosMBean.subTotal}</td>
 						</tr>
 						<tr class="ttu">
 							<td colspan="2">Taxa de serviço</td>
-							<td align="right">R$4,60</td>
+							<td align="right">R$ #{vendaIngressosMBean.subTotal * 0.1}</td>
 						</tr>
 						<tr class="ttu">
 							<td colspan="2">Desconto</td>
-							<td align="right">5,00%</td>
+							<td align="right">0,00%</td>
 						</tr>
 						<tr class="ttu">
 							<td colspan="2">Total</td>
-							<td align="right">R$45,56</td>
+							<td align="right">R$ #{vendaIngressosMBean.calcularTotal()}</td>
 						</tr>
 						<tr class="sup ttu p--0">
 							<td colspan="3"><b>Pagamentos</b></td>
 						</tr>
+						<p:repeat var="pagamento" value="#{vendaIngressosMBean.pagamentos}" id="pags">
 						<tr class="ttu">
-							<td colspan="2">Voucher</td>
-							<td align="right">R$10,00</td>
+							<td colspan="2">#{pagamento.tipoDePagamento}</td>
+							<td align="right">R$ #{pagamento.valor}</td>
 						</tr>
-						<tr class="ttu">
-							<td colspan="2">Dinheiro</td>
-							<td align="right">R$10,00</td>
-						</tr>
-						<tr class="ttu">
-							<td colspan="2">Total pago</td>
-							<td align="right">R$10,00</td>
-						</tr>
-						<tr class="ttu">
-							<td colspan="2">Troco</td>
-							<td align="right">R$0,44</td>
-						</tr>
+						</p:repeat>
+
 						<tr class="sup">
 							<td colspan="3" align="center"><b>Pedido:</b></td>
 						</tr>
@@ -165,10 +157,10 @@
 												 <i class="fa fa-calculator" aria-hidden="true" ></i>Pagamentos</f:facet>
 							
 							<p:column headerText="id" style="width: 10%; text-align: center;">
-								<h:outputText value="#{vendaIngressosMBean.pagamentos.iterator()}" />
+								<h:outputText value="#{vendaIngressosMBean.pagamentos.indexOf(conta)+1}" />
 							</p:column>
 							
-							<p:column headerText="Tipo do Pagamento" style="width: 60%;">
+							<p:column headerText="Tipo do Pagamento" style="width: 55%;">
 								<h:outputText value="#{conta.tipoDePagamento}" />
 							</p:column>
 							
@@ -185,13 +177,22 @@
 							</p:column>
 							<f:facet name="footer">
    								<p:column colspan="2" style="text-align: right;"> 
-									<h:outputText value="Total: " />
+									<h:outputText value="Total Pendente: " />
 								</p:column>
 								<p:column>
-									<h:outputText value=" #{vendaIngressosMBean.totalComanda}" />
+									<h:outputText value=" #{vendaIngressosMBean.totalPendente}" />
 								</p:column>
     						</f:facet>
 						</p:dataTable>
+						<p:panel style="text-align: center;">
+						
+							<p:commandButton styleClass="button_ativar" value="Encerrar Venda" 
+											 icon="fa  fa-fw  fa-thumbs-o-up" id="button_encerrar"
+											 disabled="#{vendaIngressosMBean.btnIsDisibled()}"
+											 action="#{vendaIngressosMBean.salvarVenda()}"
+											 oncomplete="window.location.reload(false)"/>
+						
+						</p:panel>
 						</div>
 					</p:layoutUnit>
 				</p:layout>		
@@ -204,5 +205,6 @@
 			onLoad();
 		</script>
 	</p:dialog>
+	<ui:include src="/pages/vendaIngressos/valor.xhtml" />
 </h:body>
 </html>

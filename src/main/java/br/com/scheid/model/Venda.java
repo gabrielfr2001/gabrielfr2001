@@ -1,13 +1,15 @@
 package br.com.scheid.model;
 
-import java.io.Serializable;
-import java.time.LocalDate;
+import java.io.Serializable; 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Venda extends AbstractModel<Long> implements Serializable {
@@ -16,7 +18,8 @@ public class Venda extends AbstractModel<Long> implements Serializable {
 	
 	@Id @GeneratedValue
 	private Long id;
-	private LocalDate data;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date data;
 	@OneToMany
 	private List<Pagamento> pagamentos;
 	
@@ -25,11 +28,11 @@ public class Venda extends AbstractModel<Long> implements Serializable {
 		return id;
 	}
 
-	public LocalDate getData() {
+	public Date getData() {
 		return data;
 	}
 
-	public void setData(LocalDate data) {
+	public void setData(Date data) {
 		this.data = data;
 	}
 
