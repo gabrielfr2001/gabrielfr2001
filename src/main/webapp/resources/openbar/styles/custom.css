@@ -55,6 +55,39 @@ body {
     background-size: contain;
     cursor: pointer;
     display: inline-block;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+.opcoes:hover{
+	-webkit-filter: grayscale(100%);
+}
+
+.opcoes1:hover {
+	-webkit-filter: grayscale(100%);
+}
+
+.opcoes2:hover {
+	
+	-webkit-filter: grayscale(100%);
+}
+
+.opcoes3:hover {
+	
+	-webkit-filter: grayscale(100%);
+}
+
+.opcoes4:hover{
+	
+	-webkit-filter: grayscale(100%);
+}
+
+.opcoes5:hover {
+	
+	-webkit-filter: grayscale(100%);
 }
 .opcoes1 {
     width: 118px;
@@ -63,6 +96,11 @@ body {
     background-size: contain;
     cursor: pointer;
     display: inline-block;
+        -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    transition: all .3s ease;
 }
 .opcoes2 {
     width: 118px;
@@ -71,6 +109,11 @@ body {
     background-size: contain;
     cursor: pointer;
     display: inline-block;
+        -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    transition: all .3s ease;
 }
 .opcoes3 {
     width: 118px;
@@ -79,6 +122,11 @@ body {
     background-size: contain;
     cursor: pointer;
     display: inline-block;
+        -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    transition: all .3s ease;
 }
 .opcoes4 {
     width: 118px;
@@ -87,6 +135,11 @@ body {
     background-size: contain;
     cursor: pointer;
     display: inline-block;
+        -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    transition: all .3s ease;
 }
 .opcoes5 {
     width: 118px;
@@ -95,6 +148,11 @@ body {
     background-size: contain;
     cursor: pointer;
     display: inline-block;
+        -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    transition: all .3s ease;
 }
 .btnOpcao{
 	width: 117px;
