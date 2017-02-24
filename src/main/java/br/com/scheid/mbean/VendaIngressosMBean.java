@@ -10,6 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import br.com.scheid.dao.GenericDAO;
+import br.com.scheid.enums.EnumTipoPagamento;
 import br.com.scheid.filters.IngressoFilter;
 import br.com.scheid.model.Ingresso;
 import br.com.scheid.model.Pagamento;
@@ -40,6 +41,7 @@ public class VendaIngressosMBean extends AbstractCommonMBean implements Serializ
 	public float totalComanda;
 	public Venda venda;
 	public Pagamento pagamento;
+	public String tipoPagamento;
 	public List<Pagamento> pagamentos;
 	
 	public void onFinalizarCompras(){
@@ -113,6 +115,13 @@ public class VendaIngressosMBean extends AbstractCommonMBean implements Serializ
 				break;
 			}
 		}
+	}
+	
+	public void onAdicionarPagamento(){
+		if(this.pagamento == null){
+			this.pagamento = new Pagamento();
+		}
+		this.pagamento.setPagamento(20, EnumTipoPagamento.values()[Integer.parseInt(this.tipoPagamento)]);
 	}
 	
 	public void onCancelar(){
@@ -232,7 +241,13 @@ public class VendaIngressosMBean extends AbstractCommonMBean implements Serializ
 	public void setPagamentos(List<Pagamento> pagamentos) {
 		this.pagamentos = pagamentos;
 	}
-	
-	
+
+	public String getTipoPagamento() {
+		return tipoPagamento;
+	}
+
+	public void setTipoPagamento(String tipoPagamento) {
+		this.tipoPagamento = tipoPagamento;
+	}
 }
 

@@ -6,12 +6,39 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:body>
+	
+	<script type="text/javascript">
+		var tiposPagamentos = new Array();
+		function TipoPagamento(tipoPagamento){
+			this.tipoPagamento = tipoPagamento;
+		}
+
+		function onLoad(){
+			tiposPagamentos[0] = new  TipoPagamento("0");
+			tiposPagamentos[1] = new  TipoPagamento("1");
+			tiposPagamentos[2] = new  TipoPagamento("2");
+			tiposPagamentos[3] = new  TipoPagamento("3");
+			tiposPagamentos[4] = new  TipoPagamento("4");
+			tiposPagamentos[5] = new  TipoPagamento("5");
+			tiposPagamentos[6] = new  TipoPagamento("6"); 
+		}
+
+		function setarTipoPagamento(index){
+			document.getElementById('formCheckout:tipoPagamento').value = tiposPagamentos[index].tipoPagamento;
+			document.getElementById('formCheckout:btnEnviarTipoPagamento').click();
+		}
+	</script>
+
 	<p:dialog widgetVar="dialogCheckoutWV" id="dialogCheckout"
 		resizable="false" modal="true" dynamic="true" width="900"
 		height="525">
 		<f:facet name="header">
 			<i class="fa fa-credit-card" aria-hidden="true"></i> Finalizar Compra</f:facet>
-		<h:form>
+		<h:form id="formCheckout">
+		
+		<p:inputText id="tipoPagamento" style="display: none;" value="#{vendaIngressosMBean.tipoPagamento}" />
+		<p:commandButton id="btnEnviarTipoPagamento" style="display: none;" action="#{vendaIngressosMBean.onAdicionarPagamento}"/>
+		
 		<p:layout style="height: 500px;">
 
 			<p:layoutUnit position="west" resizable="false" >
@@ -102,27 +129,27 @@
 					<p:outputLabel styleClass="tituluzinho" ><i class="fa fa-money" aria-hidden="true"></i> Adicionar pagamento: </p:outputLabel>
 					<p:panelGrid header="Pagamento:"  width="300"  style="text-align: center;width: 265px;height:500;" columns="2" >
 						
-						<div class="opcoes">
+						<div class="opcoes" onclick="setarTipoPagamento(0);">
 							<span class="mais"><i class="fa fa-plus" style="position: relative; color: #1e94d2; font-size: 17px; bottom: -7px;"/>
 		     				</span>
 		    			</div>
-		    			<div class="opcoes1">
+		    			<div class="opcoes1" onclick="setarTipoPagamento(1);">
 							<span class="mais"><i class="fa fa-plus" style="position: relative; color: #1e94d2; font-size: 17px; bottom: -7px;"/>
 		     				</span>
 		    			</div>
-		    			<div class="opcoes2">
+		    			<div class="opcoes2" onclick="setarTipoPagamento(2);">
 							<span class="mais"><i class="fa fa-plus" style="position: relative; color: #1e94d2; font-size: 17px; bottom: -7px;"/>
 		     				</span>
 		    			</div>
-		    			<div class="opcoes3">
+		    			<div class="opcoes3" onclick="setarTipoPagamento(3);">
 							<span class="mais"><i class="fa fa-plus" style="position: relative; color: #1e94d2; font-size: 17px; bottom: -7px;"/>
 		     				</span>
 		    			</div>
-		    			<div class="opcoes4">
+		    			<div class="opcoes4" onclick="setarTipoPagamento(4);">
 							<span class="mais"><i class="fa fa-plus" style="position: relative; color: #1e94d2; font-size: 17px; bottom: -7px;"/>
 		     				</span>
 		    			</div>
-		    			<div class="opcoes5">
+		    			<div class="opcoes5" onclick="setarTipoPagamento(5);">
 							<span class="mais"><i class="fa fa-plus" style="position: relative; color: #1e94d2; font-size: 17px; bottom: -7px;"/>
 		     				</span>
 		    			</div>
@@ -173,6 +200,9 @@
 		</p:layout>
 
 		</h:form>
+		<script type="text/javascript">
+			onLoad();
+		</script>
 	</p:dialog>
 </h:body>
 </html>
