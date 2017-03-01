@@ -18,7 +18,7 @@ public class ProdutoQueryGenerator {
 		if (pf.getNome() != null && !pf.getNome().equals("")) {
 			sql.append(" and UPPER(x.nome) LIKE :pNome ");
 			params.put("pNome", "%" + pf.getNome().toUpperCase() + "%");
-		}
+		} 
 
 		if (pf.getDescricao() != null && !pf.getDescricao().equals("")) {
 			sql.append(" and UPPER(x.descricao) LIKE :pDescricao ");

@@ -5,3 +5,4 @@ public enum EnumTipoPagamento {
 	DINHEIRO, CHEQUE, VISA_DEBITO, MAESTRO_DEBITO, VISA, MASTERCARD, ASSINADO;
 	
 }
+ 

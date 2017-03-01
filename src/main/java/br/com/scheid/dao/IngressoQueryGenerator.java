@@ -16,7 +16,7 @@ public class IngressoQueryGenerator {
 		sql.append("Select x from " + Ingresso.class.getName() + " x ");
 		sql.append(" where 1=1");
 		if (ingf.getNome() != null && !ingf.getNome().equals("")) {
-
+ 
 			sql.append(" and UPPER(x.nome) LIKE :pNome ");
 			params.put("pNome", "%" + ingf.getNome().toUpperCase() + "%");
 

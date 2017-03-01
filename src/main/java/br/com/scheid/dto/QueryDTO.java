@@ -12,7 +12,7 @@ public class QueryDTO {
 		this.query = query;
 		this.params = params;
 	}
-	
+	 
 	public String getQuery() {
 		return query;
 	}

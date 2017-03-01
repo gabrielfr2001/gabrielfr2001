@@ -18,7 +18,7 @@ public class IngressoFilter {
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
+	} 
 	public float getPreco() {
 		return preco;
 	}

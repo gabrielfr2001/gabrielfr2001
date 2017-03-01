@@ -20,7 +20,7 @@ public class GenericDAO {
 		transaction.begin();
 		entityManager.persist(entitade);
 		transaction.commit();
-	}
+	} 
 
 	public <T extends AbstractModel<PK>, PK extends Serializable> void deletar(Class<T> clazz, PK id) {
 		T entidade = this.buscarPorId(clazz, id);
