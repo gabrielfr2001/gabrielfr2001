@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 
 import org.primefaces.context.RequestContext;
 
@@ -17,7 +17,7 @@ import br.com.scheid.utils.StringUtil;
 import br.com.scheid.viewmodel.ProdutosViewModel;
 
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class ProdutosMBean extends AbstractCommonMBean implements Serializable{
     private static final long serialVersionUID = 1L;
 
@@ -65,7 +65,7 @@ public class ProdutosMBean extends AbstractCommonMBean implements Serializable{
 			this.fecharDialog();
 		}
 	}
-
+	
 	public void init(){
 		produtosSelecionados = new ArrayList<Produto>();
 		produtosCadastrados = new ArrayList<Produto>();

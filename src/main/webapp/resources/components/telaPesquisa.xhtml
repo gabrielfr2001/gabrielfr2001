@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:my="http://java.sun.com/jsf/composite/components"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface>
+	<composite:attribute name="id" />
+	<composite:attribute name="mBean" required="true" />
+	<composite:attribute name="updateOnRowSelect"></composite:attribute>
+	<composite:attribute name="formName"></composite:attribute>
+	<composite:attribute name="selecionados" required="true"></composite:attribute>
+	<composite:attribute name="cadastrados" required="true"></composite:attribute>
+</composite:interface>
+
+<composite:implementation>
+	<h1 class="aw-page-title">
+		<i class="fa fa-shopping-basket"></i>
+		<h:outputText value="#{cc.attrs.mBean.getLabel('titulom')}" />
+	</h1>
+	<h:form id="#{cc.attrs.formName}" prependId="false">
+		<p:remoteCommand name="updateTablePesquisa" update="linesTable" />
+
+		<p:panel toggleable="false">
+			<f:facet name="header">
+				<h:outputText value=" #{cc.attrs.mBean.getLabel('titulo')}" />
+			</f:facet>
+			<p:panel toggleable="true" widgetVar="panelFiltrosWV" style="text-align: left;"
+				id="filtrosPesquisa">
+
+				<f:facet name="header">
+					<i class="fa fa-filter"></i>
+					<h:outputText
+						value="#{cc.attrs.mBean.getLabel('filtroDePesquisa')}" />
+				</f:facet>
+				<h:panelGrid columns="1" style="margin-bottom:20px;">
+					<h:panelGrid columns="1">
+						<composite:renderFacet name="campos" />
+					</h:panelGrid>
+				</h:panelGrid>
+
+				<h:panelGrid style="margin-bottom:20px;">
+					<p:toolbar>
+						<p:toolbarGroup>
+							<p:commandButton styleClass="button_principal"
+								value="#{cc.attrs.mBean.getLabel('Pesquisar')}"
+								action="#{cc.attrs.mBean.onBuscar()}" update="linesTable"
+								oncomplete="PF('panelFiltrosWV').toggle(); PF('panelResultsWV').expand();"
+								icon="fa  fa-fw  fa-search" />
+							<p:commandButton id="newSearch"
+								action="#{cc.attrs.mBean.onNovaPesquisa()}"
+								update="componentDialogInclusao:filtrosPesquisa"
+								value="#{cc.attrs.mBean.getLabel('NovaPesquisa')}"
+								icon="fa  fa-fw  fa-search-plus" />
+						</p:toolbarGroup>
+					</p:toolbar>
+				</h:panelGrid>
+			</p:panel>
+			<p:panel id="panelResults" toggleable="true" collapsed="true"
+				widgetVar="panelResultsWV">
+
+				<f:facet name="header">
+					<h:outputText
+						value=" #{cc.attrs.mBean.getLabel('datatableTitulo')}" />
+				</f:facet>
+				<p:dataTable id="linesTable" value="#{cc.attrs.cadastrados}"
+					var="line" selection="#{cc.attrs.selecionados}" rowKey="#{line.id}"
+					paginator="true" rowSelectMode="ckeckbox" sortBy="#{line.nome}"
+					rows="10" reflow="true" style="margin-top: 10px">
+
+
+					<p:ajax event="rowSelect" update="#{cc.attrs.updateOnRowSelect}" />
+
+					<p:ajax event="rowUnselect" update="#{cc.attrs.updateOnRowSelect}" />
+
+					<p:ajax event="rowSelectCheckbox"
+						update="#{cc.attrs.updateOnRowSelect}" />
+
+					<p:ajax event="rowUnselectCheckbox"
+						update="#{cc.attrs.updateOnRowSelect}" />
+
+					<p:ajax event="toggleSelect" update="#{cc.attrs.updateOnRowSelect}" />
+
+					<p:column selectionMode="multiple"
+						style="width:16px;text-align:center" />
+
+					<composite:insertChildren />
+
+					<p:column headerText="#{cc.attrs.mBean.getLabel('Ativo')}"
+						style="width:60px;text-align: center;">
+						<p:panelGrid rendered="#{line.ativo}">
+							<i class="fa fa-check" style="text-align: center; color: green;"></i>
+						</p:panelGrid>
+						<p:panelGrid rendered="#{!line.ativo}">
+							<i class="fa fa-times" style="text-align: center; color: red;"></i>
+						</p:panelGrid>
+					</p:column>
+				</p:dataTable>
+
+				<p:panel style="text-align: center;">
+					<composite:renderFacet name="botoes" />
+				</p:panel>
+			</p:panel>
+		</p:panel>
+	</h:form>
+</composite:implementation>
+</html>

@@ -21,10 +21,6 @@ public class IngressoQueryGenerator {
 			params.put("pNome", "%" + ingf.getNome().toUpperCase() + "%");
 
 		}
-
-		
-		
-
 		return new QueryDTO(sql.toString(), params);
 	}
 	
